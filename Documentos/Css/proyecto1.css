@@ -1,0 +1,156 @@
+/* --- RESET --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #fff; /* Fondo blanco general */
+    color: #333;
+}
+
+/* --- 1. HEADER GLOBAL --- */
+/* El diseño de la imagen NO tiene barra superior, así que la ocultamos
+   aunque exista en el HTML para respetar la estructura solicitada. */
+.main-header {
+    display: none;
+}
+
+/* --- LAYOUT CENTRAL (Nav + Section) --- */
+.main-layout {
+    display: flex;
+    flex: 1; /* Ocupa todo el espacio hasta el footer */
+}
+
+/* --- 2. NAV (Lateral Azul) --- */
+.sidebar {
+    width: 250px; /* Ancho fijo */
+    background-color: #003399; /* AZUL INTENSO EXACTO */
+    color: white;
+    padding: 40px 20px;
+    flex-shrink: 0; /* No se encoge */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+.sidebar li {
+    margin-bottom: 8px;
+}
+
+.sidebar a {
+    color: #ddd;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+/* Estilos extra para simular los títulos del menú */
+.nav-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+.nav-title.indented {
+    padding-left: 15px;
+    font-size: 1.2rem;
+}
+
+/* --- 3. SECTION (Contenido Blanco) --- */
+.content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 40px 50px; /* Espaciado interno amplio */
+}
+
+/* 3.1 Header Interno (Títulos) */
+.section-header {
+    background-color: transparent; /* Quitamos el gris del wireframe */
+    border: none;
+    padding: 0;
+    margin-bottom: 30px;
+    /* En el wireframe era flex row, aquí lo queremos en columna normal */
+    display: block;
+}
+
+.section-header h1 {
+    font-size: 1.8rem;
+    color: #666; /* Gris oscuro para el título superior */
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+
+.section-header h2 {
+    font-size: 2.2rem;
+    color: #000;
+    font-weight: bold;
+}
+
+/* 3.2 Article (Caja del contenido) */
+.project-article {
+    border: none; /* Quitamos bordes del wireframe */
+    background-color: transparent;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.image-container {
+    width: 100%;
+    height: auto;
+    background-color: transparent;
+    border: none;
+}
+
+.image-container img {
+    width: 100%;
+    max-width: 500px; /* Tamaño controlado */
+    height: auto;
+    display: block;
+}
+
+.text-container {
+    padding: 0; /* Quitamos padding extra del wireframe */
+    border: none;
+    background-color: transparent;
+}
+
+.text-container h3 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.text-container p {
+    margin-bottom: 15px;
+    line-height: 1.5;
+    color: #333;
+    text-align: justify;
+}
+
+/* 3.3 Footer Interno */
+/* El diseño no lo usa visualmente, lo ocultamos para limpiar */
+.section-footer {
+    display: none;
+}
+
+/* --- 4. FOOTER GLOBAL (Barra Gris Inferior) --- */
+.main-footer {
+    background-color: #666; /* GRIS OSCURO */
+    color: white;
+    text-align: center;
+    padding: 15px;
+    border: none;
+}
