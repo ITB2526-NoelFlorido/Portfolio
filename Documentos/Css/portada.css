@@ -1,0 +1,231 @@
+/* --- RESET BÁSICO --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #eef4ff;
+}
+
+.layout-container {
+    display: flex;
+    flex: 1;
+}
+
+/* --- BARRA LATERAL (NAV) --- */
+.sidebar {
+    width: 260px;
+    background-color: #003399;
+    color: white;
+    padding: 40px 20px;
+    flex-shrink: 0;
+    overflow-y: auto;
+}
+
+.menu-root {
+    list-style: none;
+}
+
+.menu-title {
+    /* Aumentado de 1.4rem a 1.6rem */
+    font-size: 1.6rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    user-select: none;
+    gap: 10px;
+}
+
+.menu-title.indented {
+    padding-left: 20px;
+    /* Aumentado de 1.2rem a 1.3rem */
+    font-size: 1.3rem;
+}
+
+.arrow {
+    font-size: 0.9rem; /* Un pelín más grande */
+    display: inline-block;
+    transition: transform 0.2s ease;
+    color: rgba(255,255,255,0.7);
+}
+
+.menu-link {
+    padding-left: 45px;
+    margin-bottom: 8px;
+    list-style: none;
+}
+
+.menu-link a {
+    /* Aumentado de 0.95rem a 1.1rem */
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s;
+    display: block;
+}
+
+.menu-link a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* --- ANIMACIÓN DESPLEGABLE --- */
+.submenu {
+    list-style: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.open > .submenu {
+    max-height: 800px;
+}
+
+.open > .menu-title .arrow {
+    transform: rotate(90deg);
+    color: white;
+}
+
+/* --- CONTENIDO --- */
+.content {
+    flex: 1;
+    padding: 40px 50px;
+}
+
+header h1 {
+    /* Aumentado de 2.5rem a 3rem (más impacto) */
+    font-size: 3rem;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.section-subtitle {
+    /* Aumentado de 1.5rem a 1.8rem */
+    font-size: 1.8rem;
+    color: #666;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+/* --- CAJAS GRISES --- */
+.grey-box {
+    background-color: #D9D9D9;
+    padding: 30px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* --- GRID ASIMÉTRICO --- */
+.projects-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.project-card.wide {
+    grid-column: span 2;
+}
+
+.project-card h3 {
+    /* Aumentado de 1.4rem a 1.7rem */
+    font-size: 1.7rem;
+    margin: 0;
+}
+
+.project-card img {
+    align-self: flex-start;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 4px;
+}
+
+.project-card p {
+    /* Aumentado de 0.95rem a 1.15rem (mucho más legible) */
+    font-size: 1.15rem;
+    line-height: 1.6; /* Un poco más de aire entre líneas */
+    margin: 0;
+}
+
+/* --- FORMULARIO Y BOTÓN --- */
+.form-box {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-box h2 {
+    text-align: center;
+    /* Aumentado de 1.4rem a 1.8rem */
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    /* Aumentado de 1.3rem a 1.5rem */
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    padding: 15px; /* Un poco más de padding */
+    border-radius: 3px;
+    /* Aumentado de 1rem a 1.1rem */
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #555555;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    /* Aumentado de 1.2rem a 1.4rem */
+    font-size: 1.4rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #333;
+}
+
+/* --- FOOTER --- */
+footer {
+    background-color: #555555;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 1.3rem; /* Ligeramente más grande */
+    margin-top: auto;
+}
