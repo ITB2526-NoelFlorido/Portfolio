@@ -1,0 +1,168 @@
+/* --- RESET BÁSICO --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #fff;
+}
+
+/* --- 1. HEADER GLOBAL (Oculto como en el diseño) --- */
+.main-header {
+    display: none;
+}
+
+/* --- LAYOUT PRINCIPAL (Nav + Contenido) --- */
+.main-layout {
+    display: flex;
+    flex: 1; /* Ocupa todo el espacio vertical disponible */
+}
+
+/* =========================================
+   2. BARRA LATERAL (Idéntica a la anterior)
+   ========================================= */
+.sidebar {
+    width: 260px;
+    background-color: #003399; /* Azul Corporativo */
+    color: white;
+    padding: 40px 20px;
+    flex-shrink: 0;
+}
+
+/* Estilos del menú para que funcionen igual */
+.menu-root { list-style: none; }
+
+.menu-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    gap: 10px;
+}
+
+.menu-title.indented {
+    padding-left: 20px;
+    font-size: 1.3rem;
+}
+
+.arrow {
+    font-size: 0.9rem;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+/* Enlaces del menú (Forzamos blanco siempre) */
+.sidebar a,
+.sidebar a:link,
+.sidebar a:visited,
+.sidebar a:active {
+    color: white !important;
+    text-decoration: none;
+    font-weight: bold;
+}
+.sidebar a:hover {
+    text-decoration: underline;
+}
+
+/* Submenús */
+.submenu {
+    list-style: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+.open > .submenu { max-height: 800px; }
+.open > .menu-title .arrow { transform: rotate(90deg); }
+
+.menu-link {
+    padding-left: 45px;
+    margin-bottom: 8px;
+}
+
+/* =========================================
+   3. ZONA DE CONTENIDO (La parte blanca)
+   ========================================= */
+.content-area {
+    flex: 1;
+    padding: 50px 60px; /* Espaciado amplio */
+    display: flex;
+    flex-direction: column;
+}
+
+/* 3.1 TÍTULOS DE LA SECCIÓN */
+.section-header {
+    margin-bottom: 20px;
+}
+
+/* Título principal: "Porfolio profesional" */
+.section-header h1 {
+    font-size: 2.5rem; /* Muy grande y negro */
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+/* Subtítulo: "Proyectos:" */
+.section-header h2 {
+    font-size: 1.8rem;
+    color: #777; /* Gris, como en la imagen */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* 3.2 LA LISTA DE PROYECTOS (Lo nuevo) */
+.projects-list-article {
+    flex: 1;
+}
+
+.projects-list {
+    list-style-type: disc; /* Pone los puntos negros redondos */
+    padding-left: 25px;    /* Espacio para los puntos */
+    margin-top: 10px;
+}
+
+.projects-list li {
+    font-size: 1.3rem;     /* Tamaño de letra grande */
+    font-weight: bold;     /* Negrita */
+    color: #000;           /* Negro puro */
+    margin-bottom: 10px;   /* Separación entre líneas */
+    line-height: 1.4;
+}
+
+/* Si usaste h3 y p dentro del li, esto asegura que se vean integrados */
+.projects-list li h3 {
+    font-size: inherit;
+    font-weight: inherit;
+    display: inline;
+}
+.projects-list li p {
+    font-weight: normal;
+    font-size: 1rem;
+    color: #555;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+/* Footer interno (oculto en el diseño visual) */
+.section-footer {
+    display: none;
+}
+
+/* =========================================
+   4. FOOTER GLOBAL (Barra Gris)
+   ========================================= */
+.main-footer {
+    background-color: #777; /* Gris medio */
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 1.2rem;
+}

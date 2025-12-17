@@ -164,59 +164,67 @@ header h1 {
     margin: 0;
 }
 
-/* --- FORMULARIO Y BOTÓN --- */
-.form-box {
+/* =========================================
+   FORMULARIO (Adaptado al HTML sin clases)
+   ========================================= */
+
+/* El contenedor principal (el propio formulario) */
+#contact-form {
+    /* Estilo "Grey Box" aplicado al formulario */
+    background-color: #D9D9D9;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
 
-.form-box h2 {
-    text-align: center;
-    /* Aumentado de 1.4rem a 1.8rem */
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-}
-
-.form-group {
+    /* Flexbox para poner todo en columna vertical */
     display: flex;
     flex-direction: column;
 }
 
-.form-group label {
-    /* Aumentado de 1.3rem a 1.5rem */
+/* Las etiquetas (Nombre, Email...) */
+#contact-form label {
     font-size: 1.5rem;
-    margin-bottom: 5px;
+    color: white; /* Blanco para que resalte sobre el gris */
+    font-weight: bold;
+    margin-bottom: 5px; /* Espacio entre el texto y la caja */
+    margin-top: 15px;   /* Espacio respecto al campo anterior */
 }
 
-.form-group input,
-.form-group textarea {
-    background: rgba(255, 255, 255, 0.5);
+/* Quitar margen al primer label para que no quede hueco arriba */
+#contact-form label:first-child {
+    margin-top: 0;
+}
+
+/* Los campos de escribir (Input y Textarea) */
+#contact-form input,
+#contact-form textarea {
+    background: rgba(255, 255, 255, 0.5); /* Blanco semitransparente */
     border: none;
-    padding: 15px; /* Un poco más de padding */
+    padding: 15px;
     border-radius: 3px;
-    /* Aumentado de 1rem a 1.1rem */
     font-size: 1.1rem;
     color: #333;
+    width: 100%;      /* Que ocupen todo el ancho */
+    outline: none;    /* Quita el borde azul al hacer clic */
 }
 
-.submit-btn {
-    width: 100%;
+/* El botón de enviar */
+#contact-form button {
+    margin-top: 25px; /* Separación del botón con lo de arriba */
     padding: 15px;
     background-color: #555555;
     color: white;
     border: none;
     border-radius: 4px;
-    /* Aumentado de 1.2rem a 1.4rem */
     font-size: 1.4rem;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 15px;
     transition: background-color 0.3s;
+    width: 100%;
 }
 
-.submit-btn:hover {
+#contact-form button:hover {
     background-color: #333;
 }
 
@@ -228,4 +236,21 @@ footer {
     padding: 20px;
     font-size: 1.3rem; /* Ligeramente más grande */
     margin-top: auto;
+}
+/* --- FORZAR ESTILO BLANCO EN ENLACES DEL MENÚ --- */
+
+/* Apuntamos a todos los enlaces (a) dentro de la barra lateral (.sidebar),
+   incluyendo el estado ":visited" (cuando ya le has dado click). */
+.sidebar a,
+.sidebar a:link,
+.sidebar a:visited,
+.sidebar a:active {
+    color: white !important; /* ¡Importante! Fuerza el color blanco siempre */
+    text-decoration: none;   /* Quita el subrayado por defecto */
+    cursor: pointer;         /* Asegura que salga la manita al pasar el ratón */
+}
+
+/* Opcional: Mantenemos un efecto al pasar el ratón por encima para que se sepa que es clicable */
+.sidebar a:hover {
+    text-decoration: underline; /* O puedes poner "opacity: 0.8;" si prefieres que se oscurezca un poco */
 }
