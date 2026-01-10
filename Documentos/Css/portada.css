@@ -254,3 +254,21 @@ footer {
 .sidebar a:hover {
     text-decoration: underline; /* O puedes poner "opacity: 0.8;" si prefieres que se oscurezca un poco */
 }
+
+/* --- EFECTOS DEL FORMULARIO --- */
+
+/* 1. Definimos la animación de temblor */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+/* 2. Clase que Javascript activará cuando haya error */
+.error-shake {
+    animation: shake 0.4s ease-in-out;
+    background-color: #ff4d4d !important; /* Rojo alerta */
+    border: 1px solid #cc0000;
+}
