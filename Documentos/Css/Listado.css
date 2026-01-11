@@ -102,7 +102,7 @@ body {
     margin-bottom: 20px;
 }
 
-/* Título principal: "Porfolio profesional" */
+/* Título principal: "Mis Proyectos" */
 .section-header h1 {
     font-size: 2.5rem; /* Muy grande y negro */
     font-weight: bold;
@@ -110,7 +110,7 @@ body {
     margin-bottom: 5px;
 }
 
-/* Subtítulo: "Proyectos:" */
+/* Subtítulo: "Galería Principal" */
 .section-header h2 {
     font-size: 1.8rem;
     color: #777; /* Gris, como en la imagen */
@@ -124,8 +124,10 @@ body {
 }
 
 .projects-list {
-    list-style-type: disc; /* Pone los puntos negros redondos */
-    padding-left: 25px;    /* Espacio para los puntos */
+    /* CAMBIO IMPORTANTE AQUÍ: decimal para números */
+    list-style-type: decimal;
+    /* Aumentado a 40px para que quepan bien los números de dos cifras (10, 11...) */
+    padding-left: 40px;
     margin-top: 10px;
 }
 
@@ -133,22 +135,25 @@ body {
     font-size: 1.3rem;     /* Tamaño de letra grande */
     font-weight: bold;     /* Negrita */
     color: #000;           /* Negro puro */
-    margin-bottom: 10px;   /* Separación entre líneas */
+    margin-bottom: 20px;   /* Separación entre cada proyecto */
     line-height: 1.4;
 }
 
-/* Si usaste h3 y p dentro del li, esto asegura que se vean integrados */
+/* Título del proyecto (h3) dentro de la lista */
 .projects-list li h3 {
     font-size: inherit;
     font-weight: inherit;
-    display: inline;
+    display: inline-block; /* Mejor que inline para control */
+    margin-bottom: 5px;
 }
+
+/* Descripción (p) dentro de la lista */
 .projects-list li p {
     font-weight: normal;
     font-size: 1rem;
     color: #555;
     margin-top: 5px;
-    margin-bottom: 15px;
+    margin-bottom: 0;
 }
 
 /* Footer interno (oculto en el diseño visual) */
@@ -165,4 +170,5 @@ body {
     text-align: center;
     padding: 10px;
     font-size: 1.2rem;
+    margin-top: auto; /* Empuja el footer al fondo si hay poco contenido */
 }

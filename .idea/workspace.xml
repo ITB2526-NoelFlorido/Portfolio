@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54b474ad-be80-4ec0-9c36-ed90e58ab951" name="Changes" comment="cosas">
-      <change afterPath="$PROJECT_DIR$/Documentos/Imagenes/caja-oficial-negro-gris-para-raspberry-pi-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Documentos/Imagenes/moodle-logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Documentos/Imagenes/moodlecloud-icon-unplated.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentos/Css/portada.css" beforeDir="false" afterPath="$PROJECT_DIR$/Documentos/Css/portada.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentos/Css/Listado.css" beforeDir="false" afterPath="$PROJECT_DIR$/Documentos/Css/Listado.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Listado.html" beforeDir="false" afterPath="$PROJECT_DIR$/Listado.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proyecto1.html" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proyecto2.html" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto2.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,16 +43,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "E:/Portfolio/Documentos/Imagenes"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Portfolio/Documentos/Imagenes&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Portfolio\Documentos\Imagenes" />
@@ -81,7 +81,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768048689989</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="cosas">
+      <option name="closed" value="true" />
+      <created>1768132592604</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1768132592604</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
