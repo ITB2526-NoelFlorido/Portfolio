@@ -149,6 +149,18 @@ header h1 {
     margin: 0;
 }
 
+/* === NUEVO: CORRECCIÓN PARA ENLACES EN TÍTULOS DE PROYECTOS === */
+.project-card h3 a {
+    color: white !important; /* Fuerza el color blanco */
+    text-decoration: none;   /* Quita el subrayado */
+}
+
+/* Opcional: Si quieres que al pasar el ratón se note que es un link */
+.project-card h3 a:hover {
+    text-decoration: underline;
+}
+/* ============================================================= */
+
 .project-card img {
     align-self: flex-start;
     width: 100%;
