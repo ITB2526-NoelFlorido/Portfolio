@@ -273,3 +273,86 @@ strong {
 .sidebar a:hover {
     text-decoration: underline;
 }
+
+/* =========================================
+   RESPONSIVE & MENU HAMBURGUESA
+   (Añadir al final del archivo proyecto1.css)
+   ========================================= */
+
+/* 1. ESTADO BASE (PC) - El botón hamburguesa no existe */
+.hamburger-btn {
+    display: none;
+}
+
+/* 2. VERSIÓN MÓVIL */
+@media screen and (max-width: 768px) {
+
+    /* --- Botón Hamburguesa --- */
+    .hamburger-btn {
+        display: block; /* Ahora sí aparece */
+        width: 100%;
+        background-color: var(--bg-sidebar); /* Azul corporativo */
+        color: white;
+        border: none;
+        padding: 15px 20px;
+        font-size: 1.8rem;
+        cursor: pointer;
+        text-align: left;
+        z-index: 100;
+        position: relative;
+    }
+
+    /* --- Estructura Principal --- */
+    .main-layout {
+        flex-direction: column; /* Menú arriba, contenido abajo */
+    }
+
+    /* --- Barra Lateral (Menú) --- */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        display: none; /* Oculto por defecto en móvil */
+        border-bottom: 2px solid rgba(255,255,255,0.1);
+    }
+
+    /* Clase que añade el JS al tocar el botón */
+    .sidebar.active {
+        display: block;
+        animation: slideDown 0.3s ease-out;
+    }
+
+    /* --- Contenido del Proyecto --- */
+    .content-area {
+        padding: 20px; /* Reducimos márgenes laterales */
+    }
+
+    /* Títulos más pequeños para que no corten */
+    .section-header h1 { font-size: 1.4rem; }
+    .section-header h2 { font-size: 1.6rem; line-height: 1.2; }
+
+    /* Imagen responsive */
+    .image-container img {
+        max-width: 100%; /* Que nunca sea más ancha que el móvil */
+        height: auto;
+    }
+
+    /* Texto más legible */
+    .text-container p {
+        font-size: 1rem; /* Un pelín más pequeño para leer mejor */
+        text-align: left; /* En móvil, justificado a veces crea espacios raros */
+    }
+
+    /* Botón Modo Oscuro (Ajuste) */
+    .btn {
+        top: 10px;
+        right: 10px;
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Animación suave al abrir */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
