@@ -18,11 +18,14 @@
     }
 
     function updateParticlesColor(colorHex) {
-        const container = tsParticles.domItem(0);
-        if (container) {
-            container.options.particles.color.value = colorHex;
-            container.options.particles.links.color = colorHex;
-            container.refresh();
+        // Solo intentamos actualizar si tsParticles está cargado
+        if (typeof tsParticles !== 'undefined') {
+            const container = tsParticles.domItem(0);
+            if (container) {
+                container.options.particles.color.value = colorHex;
+                container.options.particles.links.color = colorHex;
+                container.refresh();
+            }
         }
     }
 
@@ -48,43 +51,49 @@
    2. INICIALIZACIÓN DE PARTÍCULAS
    ========================================= */
 window.addEventListener("load", () => {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    const initialColor = isDark ? "#ffffff" : "#2563eb";
+    // Verificamos si la librería existe para evitar errores
+    if (typeof tsParticles !== 'undefined') {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const initialColor = isDark ? "#ffffff" : "#2563eb";
 
-    tsParticles.load("particles-bg", {
-      fullScreen: { enable: false },
-      background: { color: "transparent" },
-      particles: {
-        number: { value: 60 },
-        color: { value: initialColor },
-        links: { enable: true, color: initialColor, opacity: 0.2, distance: 120 },
-        move: { enable: true, speed: 0.5 },
-        opacity: { value: 0.3 },
-        size: { value: 2 }
-      }
-    });
+        tsParticles.load("particles-bg", {
+          fullScreen: { enable: false },
+          background: { color: "transparent" },
+          particles: {
+            number: { value: 60 },
+            color: { value: initialColor },
+            links: { enable: true, color: initialColor, opacity: 0.2, distance: 120 },
+            move: { enable: true, speed: 0.5 },
+            opacity: { value: 0.3 },
+            size: { value: 2 }
+          }
+        });
+    }
 });
 
 /* =========================================
-   3. MENÚ DESPLEGABLE
+   3. MENÚ DESPLEGABLE (Submenús de la barra lateral)
    ========================================= */
 document.addEventListener('DOMContentLoaded', () => {
     const menuItems = document.querySelectorAll('.has-children');
     menuItems.forEach(item => {
         const title = item.querySelector('.menu-title');
-        title.addEventListener('click', (e) => {
-            e.stopPropagation();
-            item.classList.toggle('open');
-        });
+        // Verificamos que existan antes de añadir eventos
+        if (title) {
+            title.addEventListener('click', (e) => {
+                e.stopPropagation();
+                item.classList.toggle('open');
+            });
+        }
     });
 });
 
 /* =========================================
-   4. VALIDACIÓN FORMULARIO (Si existe en la pág)
+   4. VALIDACIÓN FORMULARIO (Solo si existe)
    ========================================= */
 document.addEventListener("DOMContentLoaded", function() {
     var form = document.getElementById("contact-form");
-    if (!form) return;
+    if (!form) return; // Si no hay formulario, salimos
 
     form.addEventListener("submit", function(event) {
         var btn = form.querySelector("button");
@@ -100,66 +109,46 @@ document.addEventListener("DOMContentLoaded", function() {
         btn.style.cursor = "wait";
         btn.style.opacity = "0.9";
     });
-    document.addEventListener('DOMContentLoaded', () => {
-    console.log("JS Cargado correctamente");
+});
 
-    // 1. Elementos del Menú
-    const hamburger = document.getElementById('hamburger-btn');
-    const closeBtn = document.getElementById('close-sidebar');
-    const sidebar = document.getElementById('sidebar-nav');
+/* =========================================
+   5. MENÚ HAMBURGUESA (MÓVIL) - CÓDIGO CORREGIDO
+   ========================================= */
+document.addEventListener('DOMContentLoaded', () => {
 
-    // 2. Función Abrir
-    if (hamburger && sidebar) {
-        hamburger.addEventListener('click', (e) => {
-            e.preventDefault();
-            sidebar.classList.add('active');
+    // USAMOS LOS NOMBRES EXACTOS DE TU HTML
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    // Verificamos que ambos existan
+    if (menuToggle && sidebar) {
+
+        // 1. Abrir / Cerrar al tocar el botón
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation(); // Evita clics fantasma
+            sidebar.classList.toggle('active');
+
+            // Cambiar icono y bloquear scroll
+            if (sidebar.classList.contains('active')) {
+                menuToggle.innerHTML = "✕ Cerrar";
+                document.body.style.overflow = "hidden"; // No deja hacer scroll al fondo
+            } else {
+                menuToggle.innerHTML = "☰";
+                document.body.style.overflow = "auto";
+            }
         });
-    }
 
-    // 3. Función Cerrar (Botón X)
-    if (closeBtn && sidebar) {
-        closeBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            sidebar.classList.remove('active');
-        });
-    }
-
-    // 4. Cerrar al hacer clic en un enlace
-    if (sidebar) {
-        const links = sidebar.querySelectorAll('a');
-        links.forEach(link => {
+        // 2. Cerrar menú al hacer clic en cualquier enlace dentro
+        const sidebarLinks = sidebar.querySelectorAll('a');
+        sidebarLinks.forEach(link => {
             link.addEventListener('click', () => {
-                sidebar.classList.remove('active');
+                // Solo si estamos en móvil cerramos
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                    menuToggle.innerHTML = "☰";
+                    document.body.style.overflow = "auto";
+                }
             });
         });
     }
-
-    // 5. Tema Oscuro / Claro
-    const themeBtn = document.getElementById('theme-toggle');
-    if (themeBtn) {
-        themeBtn.addEventListener('click', () => {
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            if (isDark) {
-                document.documentElement.removeAttribute('data-theme');
-                themeBtn.textContent = "Modo oscuro";
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                themeBtn.textContent = "Modo claro";
-            }
-        });
-    }
-
-    // 6. Carga de Partículas
-    if (typeof tsParticles !== 'undefined') {
-        tsParticles.load("particles-bg", {
-            background: { color: "transparent" },
-            particles: {
-                number: { value: 50 },
-                color: { value: "#888888" },
-                links: { enable: true, color: "#888888", distance: 150 },
-                move: { enable: true, speed: 1 }
-            }
-        });
-    }
-});
 });
