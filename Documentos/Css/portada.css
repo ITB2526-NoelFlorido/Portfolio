@@ -2,8 +2,8 @@
    1. VARIABLES DE TEMA (Sistema nuevo)
    ========================================= */
 :root {
-    /* --- MODO CLARO --- */
-    --bg-body: #ffffff;          /* AHORA ES BLANCO PURO */
+    /* MODO CLARO */
+    --bg-body: #eef4ff;          /* Fondo azul muy claro */
     --text-main: #000000;        /* Texto negro */
     --text-subtitle: #666666;    /* Subtítulos gris */
 
@@ -106,14 +106,8 @@ body {
   pointer-events: none !important;
 }
 
-/* --- HEADER SUPERIOR (Inicialmente oculto en escritorio) --- */
-.main-header {
-    display: none; /* Se activa en móvil con media query */
-}
-
-/* --- LAYOUT PRINCIPAL --- */
-/* Soporta tanto .layout-container (tu nombre antiguo) como .main-layout (el nuevo estándar) */
-.layout-container, .main-layout {
+/* --- LAYOUT ORIGINAL --- */
+.layout-container {
     display: flex;
     flex: 1;
     z-index: 1; /* Por encima de las partículas */
@@ -188,19 +182,18 @@ body {
 .open > .menu-title .arrow { transform: rotate(90deg); color: white; }
 
 /* --- CONTENIDO --- */
-/* Soporta .content (tu nombre antiguo) y .content-area */
-.content, .content-area {
+.content {
     flex: 1;
     padding: 40px 50px;
 }
 
-header h1, .section-header h1 {
+header h1 {
     font-size: 3rem;
     color: var(--text-main); /* Variable */
     margin-bottom: 5px;
 }
 
-.section-subtitle, .section-header h2 {
+.section-subtitle {
     font-size: 1.8rem;
     color: var(--text-subtitle); /* Variable */
     font-weight: bold;
@@ -217,7 +210,7 @@ header h1, .section-header h1 {
     transition: background-color 0.3s;
 }
 
-/* --- GRID ASIMÉTRICO (Proyectos) --- */
+/* --- GRID ASIMÉTRICO --- */
 .projects-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -261,6 +254,8 @@ header h1, .section-header h1 {
 
 /* --- FORMULARIO --- */
 #contact-form {
+    /* Fondo heredado del grey-box donde está metido, o forzado */
+    /* background-color: var(--bg-box);  <-- Ya lo tiene el padre .form-box */
     display: flex;
     flex-direction: column;
 }
@@ -310,7 +305,7 @@ header h1, .section-header h1 {
 #contact-form button:hover { background-color: #333; }
 
 /* --- FOOTER --- */
-footer, .main-footer {
+footer {
     background-color: var(--bg-footer); /* Variable */
     color: white;
     text-align: center;
@@ -344,59 +339,4 @@ footer, .main-footer {
     animation: shake 0.4s ease-in-out;
     background-color: #ff4d4d !important;
     border: 1px solid #cc0000;
-}
-
-/* =========================================
-   RESPONSIVE DESIGN (MÓVIL Y TABLET)
-   ========================================= */
-@media (max-width: 768px) {
-
-    /* 1. Header Visible */
-    .main-header {
-        display: flex; align-items: center; justify-content: space-between;
-        background: var(--bg-sidebar); color: white; padding: 15px 20px;
-        position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    }
-    .main-header h1 { font-size: 1.5rem; }
-    .hamburger { background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
-
-    /* 2. Layout Columna */
-    .main-layout { flex-direction: column; }
-    .content-area { padding: 20px; text-align: center; }
-
-    /* 3. Menú Móvil (Pantalla Completa) */
-    .sidebar {
-        position: fixed; top: 0; left: -100%;
-        width: 100%; height: 100vh;
-        z-index: 99999;
-        background-color: #001a4d; /* Azul muy oscuro para contraste */
-        transition: left 0.3s ease;
-        padding-top: 100px; /* IMPORTANTE: Espacio para bajar el texto */
-        display: flex; flex-direction: column; align-items: center;
-    }
-    .sidebar.active { left: 0; }
-
-    /* Botón cerrar X */
-    .sidebar .close-btn {
-        display: block; position: absolute; top: 25px; right: 25px;
-        background: none; border: none; color: white; font-size: 3rem; cursor: pointer;
-    }
-
-    /* Ajuste de enlaces móvil */
-    .sidebar ul { text-align: center; width: 100%; }
-    .sidebar li { width: 100%; }
-    .sidebar .menu-title { justify-content: center; font-size: 1.5rem; }
-    .menu-link a { padding-left: 0; font-size: 1.4rem; margin-bottom: 15px; }
-
-    /* 4. Elementos centrados */
-    .projects-container { display: flex; flex-direction: column; }
-    .project-card.wide, .project-card { width: 100%; text-align: center; }
-    .project-card img { max-width: 100%; margin: 15px 0; }
-
-    .form-box { text-align: center; }
-    #contact-form input, #contact-form textarea { text-align: center; }
-
-    /* Mover botón tema un poco */
-    .btn { top: 15px; right: 15px; font-size: 0.8rem; z-index: 100000; }
-}
 }

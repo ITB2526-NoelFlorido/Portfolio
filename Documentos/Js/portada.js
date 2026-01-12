@@ -1,181 +1,135 @@
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("Sistema JS cargado correctamente");
-
-    /* =========================================
-       1. VARIABLES Y SELECTORES GLOBALES
-       ========================================= */
-    const hamburger = document.getElementById('hamburger-btn');
-    const closeBtn = document.getElementById('close-sidebar');
-    const sidebar = document.getElementById('sidebar-nav');
-    const backdrop = document.getElementById('menu-backdrop'); // El fondo oscuro
-    const themeBtn = document.getElementById('theme-toggle');
+/* =========================================
+   1. LÓGICA DEL MODO OSCURO (Botón Flotante)
+   ========================================= */
+(function () {
+    const btn = document.getElementById('theme-toggle');
     const root = document.documentElement;
-    const contactForm = document.getElementById("contact-form");
+    const storageKey = 'site-theme';
 
-    /* =========================================
-       2. LÓGICA DEL MENÚ MÓVIL (Sidebar)
-       ========================================= */
-
-    // Función para abrir
-    function openMenu() {
-        if (sidebar) sidebar.classList.add('active');
-        if (backdrop) backdrop.classList.add('active');
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+          root.setAttribute('data-theme', 'dark');
+          // Actualizamos configuración de partículas para modo oscuro
+          updateParticlesColor("#ffffff");
+      } else {
+          root.removeAttribute('data-theme');
+          // Actualizamos configuración de partículas para modo claro (Azul)
+          updateParticlesColor("#2563eb");
+      }
+      btn.textContent = theme === 'dark' ? 'Modo claro' : 'Modo oscuro';
     }
 
-    // Función para cerrar
-    function closeMenu() {
-        if (sidebar) sidebar.classList.remove('active');
-        if (backdrop) backdrop.classList.remove('active');
-    }
-
-    // Evento: Botón Hamburguesa
-    if (hamburger) {
-        hamburger.addEventListener('click', (e) => {
-            e.preventDefault();
-            openMenu();
-        });
-    }
-
-    // Evento: Botón X (Cerrar)
-    if (closeBtn) {
-        closeBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            closeMenu();
-        });
-    }
-
-    // Evento: Clic en el fondo oscuro (Backdrop)
-    if (backdrop) {
-        backdrop.addEventListener('click', closeMenu);
-    }
-
-    // Evento: Cerrar al hacer clic en un enlace final (no desplegable)
-    if (sidebar) {
-        const links = sidebar.querySelectorAll('.menu-link'); // Seleccionamos los enlaces finales
-        links.forEach(link => {
-            link.addEventListener('click', closeMenu);
-        });
-    }
-
-    /* =========================================
-       3. LÓGICA DE SUBMENÚS (Acordeón)
-       ========================================= */
-    // Seleccionamos los títulos que abren submenús
-    const menuTitles = document.querySelectorAll('.has-children .menu-title');
-
-    menuTitles.forEach(title => {
-        title.addEventListener('click', (e) => {
-            // Evitamos que actúe como link si queremos que despliegue
-            e.preventDefault();
-            e.stopPropagation();
-
-            // Buscamos el padre (li) para ponerle la clase 'open'
-            const parentLi = title.parentElement;
-
-            // Alternar clase (abrir/cerrar)
-            parentLi.classList.toggle('open');
-        });
-    });
-
-    /* =========================================
-       4. LÓGICA DEL MODO OSCURO Y PARTÍCULAS
-       ========================================= */
-
-    // Función para recargar partículas con el color correcto
-    function updateParticles(colorHex) {
-        // Verificamos si la librería tsParticles está cargada
-        if (typeof tsParticles === 'undefined') return;
-
-        tsParticles.load("particles-bg", {
-            fullScreen: { enable: false }, // Importante: false para respetar el div
-            background: { color: "transparent" },
-            particles: {
-                number: { value: 45 },
-                color: { value: colorHex },
-                links: {
-                    enable: true,
-                    color: colorHex,
-                    distance: 150,
-                    opacity: 0.3
-                },
-                move: { enable: true, speed: 1 },
-                opacity: { value: 0.5 },
-                size: { value: 3 }
-            },
-            interactivity: {
-                events: {
-                    onHover: { enable: true, mode: "grab" },
-                    onClick: { enable: true, mode: "push" }
-                }
-            }
-        });
-    }
-
-    // Función principal para aplicar el tema
-    function applyTheme(isDark) {
-        if (isDark) {
-            // Activar modo oscuro
-            root.setAttribute('data-theme', 'dark');
-            if (themeBtn) themeBtn.textContent = 'Modo claro';
-            updateParticles("#ffffff"); // Partículas Blancas
-        } else {
-            // Activar modo claro
-            root.removeAttribute('data-theme');
-            if (themeBtn) themeBtn.textContent = 'Modo oscuro';
-            updateParticles("#000000"); // Partículas Negras (para que se vean en fondo blanco)
+    // Función auxiliar para cambiar color de partículas dinámicamente
+    function updateParticlesColor(colorHex) {
+        // Solo si tsParticles está cargado y existe la instancia 'particles-bg'
+        const container = tsParticles.domItem(0);
+        if (container) {
+            container.options.particles.color.value = colorHex;
+            container.options.particles.links.color = colorHex;
+            container.refresh();
         }
     }
 
-    // 1. Verificar preferencia guardada o del sistema al cargar
-    const savedTheme = localStorage.getItem('site-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        applyTheme(true);
+    // Inicializar desde localStorage o preferencia del sistema
+    const saved = localStorage.getItem(storageKey);
+    if (saved) {
+      applyTheme(saved);
     } else {
-        applyTheme(false);
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(prefersDark ? 'dark' : 'light');
     }
 
-    // 2. Evento del botón de cambio de tema
-    if (themeBtn) {
-        themeBtn.addEventListener('click', () => {
-            const isDarkNow = root.getAttribute('data-theme') === 'dark';
-            if (isDarkNow) {
-                applyTheme(false);
-                localStorage.setItem('site-theme', 'light');
-            } else {
-                applyTheme(true);
-                localStorage.setItem('site-theme', 'dark');
-            }
+    // Toggle al hacer click
+    if (btn) {
+        btn.addEventListener('click', () => {
+          const isDark = root.getAttribute('data-theme') === 'dark';
+          const next = isDark ? 'light' : 'dark';
+          applyTheme(next);
+          localStorage.setItem(storageKey, next);
         });
     }
+})();
 
-    /* =========================================
-       5. LÓGICA DEL FORMULARIO
-       ========================================= */
-    if (contactForm) {
-        contactForm.addEventListener("submit", function(event) {
-            const btn = contactForm.querySelector("button");
+/* =========================================
+   2. INICIALIZACIÓN DE PARTÍCULAS
+   ========================================= */
+window.addEventListener("load", () => {
+    // Detectar color inicial basado en el tema actual
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const initialColor = isDark ? "#ffffff" : "#2563eb"; // Blanco en dark, Azul en light
 
-            // Validación visual (Efecto temblor)
-            if (!contactForm.checkValidity()) {
-                if (btn) {
-                    btn.classList.add("error-shake");
-                    setTimeout(() => {
-                        btn.classList.remove("error-shake");
-                    }, 500);
-                }
-                // Dejamos que el navegador muestre sus mensajes de error nativos
-                return;
-            }
+    tsParticles.load("particles-bg", {
+      fullScreen: { enable: false }, // Importante: false porque usamos div container
+      background: {
+        color: "transparent"
+      },
+      particles: {
+        number: { value: 60 },
+        color: { value: initialColor },
+        links: {
+          enable: true,
+          color: initialColor,
+          opacity: 0.2,
+          distance: 120
+        },
+        move: {
+          enable: true,
+          speed: 0.5
+        },
+        opacity: { value: 0.3 },
+        size: { value: 2 }
+      }
+    });
+});
 
-            // Efecto visual de "Enviando..."
-            if (btn) {
-                const originalText = btn.innerHTML;
-                btn.innerHTML = "Enviando ✈️...";
-                btn.style.opacity = "0.7";
-                btn.style.cursor = "wait";
-            }
+/* =========================================
+   3. MENÚ DESPLEGABLE SIDEBAR
+   ========================================= */
+document.addEventListener('DOMContentLoaded', () => {
+
+    const menuItems = document.querySelectorAll('.has-children');
+
+    menuItems.forEach(item => {
+        const title = item.querySelector('.menu-title');
+
+        title.addEventListener('click', (e) => {
+            e.stopPropagation();
+            item.classList.toggle('open');
         });
-    }
+    });
+});
+
+/* =========================================
+   4. FUNCIONES DEL FORMULARIO
+   ========================================= */
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    // 1. Buscamos el formulario por su ID
+    var form = document.getElementById("contact-form");
+
+    // Si no encuentra el formulario, paramos aquí.
+    if (!form) return;
+
+    // 2. Escuchamos cuando alguien intenta enviar
+    form.addEventListener("submit", function(event) {
+
+        // Buscamos el botón dentro de este formulario
+        var btn = form.querySelector("button");
+
+        // --- A. VALIDACIÓN VISUAL (Temblor) ---
+        if (!form.checkValidity()) {
+            btn.classList.add("error-shake");
+            setTimeout(function() {
+                btn.classList.remove("error-shake");
+            }, 500);
+            return;
+        }
+
+        // --- B. EFECTO "ENVIANDO" ---
+        btn.innerHTML = "Enviando ✈️...";
+        btn.style.backgroundColor = "#28a745";
+        btn.style.cursor = "wait";
+        btn.style.opacity = "0.9";
+    });
 });
