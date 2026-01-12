@@ -100,4 +100,66 @@ document.addEventListener("DOMContentLoaded", function() {
         btn.style.cursor = "wait";
         btn.style.opacity = "0.9";
     });
+    document.addEventListener('DOMContentLoaded', () => {
+    console.log("JS Cargado correctamente");
+
+    // 1. Elementos del Menú
+    const hamburger = document.getElementById('hamburger-btn');
+    const closeBtn = document.getElementById('close-sidebar');
+    const sidebar = document.getElementById('sidebar-nav');
+
+    // 2. Función Abrir
+    if (hamburger && sidebar) {
+        hamburger.addEventListener('click', (e) => {
+            e.preventDefault();
+            sidebar.classList.add('active');
+        });
+    }
+
+    // 3. Función Cerrar (Botón X)
+    if (closeBtn && sidebar) {
+        closeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            sidebar.classList.remove('active');
+        });
+    }
+
+    // 4. Cerrar al hacer clic en un enlace
+    if (sidebar) {
+        const links = sidebar.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+            });
+        });
+    }
+
+    // 5. Tema Oscuro / Claro
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            if (isDark) {
+                document.documentElement.removeAttribute('data-theme');
+                themeBtn.textContent = "Modo oscuro";
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeBtn.textContent = "Modo claro";
+            }
+        });
+    }
+
+    // 6. Carga de Partículas
+    if (typeof tsParticles !== 'undefined') {
+        tsParticles.load("particles-bg", {
+            background: { color: "transparent" },
+            particles: {
+                number: { value: 50 },
+                color: { value: "#888888" },
+                links: { enable: true, color: "#888888", distance: 150 },
+                move: { enable: true, speed: 1 }
+            }
+        });
+    }
+});
 });
