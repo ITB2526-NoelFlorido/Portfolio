@@ -144,56 +144,61 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 /* =========================================
-   5. MENÚ RESPONSIVE (MÓVIL) - NUEVO
+   3. LÓGICA DEL MENÚ MÓVIL (CORREGIDA)
    ========================================= */
 document.addEventListener('DOMContentLoaded', () => {
-    const hamburger = document.getElementById('hamburger-btn');
-    const sidebar = document.querySelector('.sidebar');
 
-    // Solo ejecutamos si existen los elementos (por seguridad)
-    if (hamburger && sidebar) {
-
-        // A) Abrir / Cerrar al pulsar el botón
-        hamburger.addEventListener('click', (e) => {
-            e.stopPropagation(); // Evita que el clic llegue al document y se cierre solo
-            sidebar.classList.toggle('active');
+    // A. Submenús desplegables
+    document.querySelectorAll('.has-children .menu-title').forEach(title => {
+        title.addEventListener('click', (e) => {
+            e.stopPropagation();
+            title.parentElement.classList.toggle('open');
         });
+    });
 
-        // B) Cerrar si hacemos clic fuera (en la zona oscura o contenido)
-        document.addEventListener('click', (e) => {
-            // Si el menú está abierto... Y el clic NO fue dentro del menú... Y tampoco en el botón
-            if (sidebar.classList.contains('active') &&
-                !sidebar.contains(e.target) &&
-                e.target !== hamburger) {
-                sidebar.classList.remove('active');
-            }
-        });
+    // B. Elementos del Menú Móvil
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const closeBtn = document.getElementById('close-sidebar');
+    const sidebar = document.getElementById('sidebar-nav');
+    const backdrop = document.getElementById('menu-backdrop');
 
-        // C) Cerrar automáticamente al pulsar un enlace para ir al sitio
-        const links = sidebar.querySelectorAll('a');
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                sidebar.classList.remove('active');
-            });
+    // Función para ABRIR el menú
+    function openMenu() {
+        if(sidebar) sidebar.classList.add('active');
+        if(backdrop) backdrop.classList.add('active');
+    }
+
+    // Función para CERRAR el menú
+    function closeMenu() {
+        if(sidebar) sidebar.classList.remove('active');
+        if(backdrop) backdrop.classList.remove('active');
+    }
+
+    // Eventos
+    if (hamburgerBtn) hamburgerBtn.addEventListener('click', openMenu);
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    if (backdrop) backdrop.addEventListener('click', closeMenu);
+
+    // Cerrar al pulsar un enlace
+    if (sidebar) {
+        sidebar.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMenu);
         });
     }
-const hamburger = document.getElementById('hamburger-btn');
-    const sidebar = document.querySelector('.sidebar');
 
-    if (hamburger && sidebar) {
-        hamburger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            sidebar.classList.toggle('active');
-        });
-
-        document.addEventListener('click', (e) => {
-            if (sidebar.classList.contains('active') && !sidebar.contains(e.target) && e.target !== hamburger) {
-                sidebar.classList.remove('active');
+    // C. Formulario
+    const form = document.getElementById("contact-form");
+    if (form) {
+        form.addEventListener("submit", function(event) {
+            const btn = form.querySelector("button");
+            if (!form.checkValidity()) {
+                btn.classList.add("error-shake");
+                setTimeout(() => btn.classList.remove("error-shake"), 500);
+            } else {
+                btn.innerHTML = "Enviando ✈️...";
+                btn.style.backgroundColor = "#28a745";
+                btn.style.opacity = "0.9";
             }
-        });
-
-        sidebar.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => sidebar.classList.remove('active'));
         });
     }
 });
