@@ -436,38 +436,47 @@ footer, .main-footer {
         z-index: 1001; /* Encima del header */
     }
 @media (max-width: 768px) {
-    /* 1. Header visible */
+    /* 1. HEADER (Menú arriba) */
     .main-header {
         display: flex; align-items: center; gap: 15px; padding: 15px 20px;
-        background-color: var(--bg-sidebar); color: var(--text-sidebar);
+        background-color: var(--bg-sidebar); color: white;
         position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
-    .main-header h1 { font-size: 1.2rem; margin: 0; color: white; }
+    .main-header h1 { font-size: 1.2rem; margin: 0; }
+    .hamburger { background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; }
 
-    /* 2. Botón Hamburguesa */
-    .hamburger { background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; padding: 0 5px; }
-
-    /* 3. Layout a columna */
+    /* 2. LAYOUT VERTICAL */
     .main-layout { flex-direction: column; }
 
-    /* 4. Sidebar oculta */
-    .sidebar {
-        position: fixed; top: 0; left: -100%; width: 80%; height: 100vh;
-        z-index: 2000; transition: left 0.3s ease; box-shadow: 4px 0 15px rgba(0,0,0,0.5);
-    }
+    /* 3. SIDEBAR (Oculta) */
+    .sidebar { position: fixed; top: 0; left: -100%; width: 80%; height: 100vh; z-index: 2000; transition: left 0.3s; box-shadow: 4px 0 15px rgba(0,0,0,0.5); }
     .sidebar.active { left: 0; }
 
-    /* 5. Ajustes de contenido */
+    /* 4. CONTENIDO */
     .content-area { padding: 20px; }
     .section-header h1 { font-size: 1.8rem; }
-    .section-subtitle { font-size: 1.4rem; }
 
-    /* Proyectos a 1 columna */
-    .projects-container { grid-template-columns: 1fr; }
-    .project-card.wide { grid-column: span 1; }
-    .project-card img { max-width: 100%; }
+    /* 5. ORDEN DE ELEMENTOS (PROYECTOS Y FORM) */
+    /* Cambiamos el GRID a FLEX COLUMNA para asegurar el orden estricto */
+    .projects-container {
+        display: flex;
+        flex-direction: column; /* Uno debajo del otro */
+        gap: 20px;
+    }
 
-    /* Botón flotante */
-    .btn { top: 15px; right: 15px; z-index: 1001; font-size: 0.8rem; }
+    /* Proyecto 1 y 2 ocupan todo el ancho */
+    .project-card.wide, .project-card {
+        width: 100%;
+        grid-column: auto; /* Anula el grid de PC */
+    }
+
+    /* Ajuste de imágenes para móvil */
+    .project-card img { max-width: 100%; height: auto; }
+
+    /* El formulario ya está debajo en el HTML, así que se queda al final */
+    .form-box { margin-top: 0; }
+
+    /* Botón flotante Dark Mode más pequeño */
+    .btn { top: 15px; right: 15px; font-size: 0.8rem; padding: 5px 10px; z-index: 1001; }
 }
 }

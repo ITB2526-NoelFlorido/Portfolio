@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Profesional</title>
     <link rel="stylesheet" href="Documentos/Css/portada.css">
-
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
 </head>
 <body>
@@ -22,23 +21,16 @@
 
     <div class="main-layout">
 
-        <nav class="sidebar">
+       <nav class="sidebar">
             <ul class="menu-root">
                 <li class="menu-item has-children">
-                    <div class="menu-title">
-                        <span class="arrow">▶</span> Porfolio:
-                    </div>
-
+                    <div class="menu-title"><span class="arrow">▶</span> Porfolio:</div>
                     <ul class="submenu">
                         <li class="menu-item">
-                            <div class="menu-title indented">
-                                <a href="#contact-form" class="menu-direct-link">Formulario</a>
-                            </div>
+                            <div class="menu-title indented"><a href="#contact-form" class="menu-direct-link">Formulario</a></div>
                         </li>
                         <li class="menu-item has-children">
-                            <div class="menu-title indented">
-                                <span class="arrow">▶</span> Proyectos:
-                            </div>
+                            <div class="menu-title indented"><span class="arrow">▶</span> Proyectos:</div>
                             <ul class="submenu">
                                 <li class="menu-link"><a href="Proyecto1.html">Proyecto 1</a></li>
                                 <li class="menu-link"><a href="Proyecto2.html">Proyecto 2</a></li>
@@ -62,7 +54,7 @@
                 <article class="grey-box project-card wide">
                     <h3 id="Proyecto1"><a href="Proyecto1.html">Proyecto Sintesis SMX</a></h3>
                     <img src="Documentos/Imagenes/moodlecloud-icon-unplated.png" alt="Imagen Proyecto">
-                    <p>Este proyecto es un curso creado en moodle de pokemon competitivo, con los pokemon más usados en el ultimo torneo mundial, sus IVs, EVs y estrategias.</p>
+                    <p>Curso moodle de pokemon competitivo, con los pokemon más usados, sus IVs, EVs y estrategias.</p>
                 </article>
 
                 <article class="grey-box project-card">
@@ -77,13 +69,13 @@
                 <h2>Formulario</h2>
                 <form id="contact-form" action="https://formspree.io/f/mnneevvo" method="POST">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre aquí">
+                    <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
 
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required placeholder="ejemplo@correo.com">
+                    <input type="email" id="email" name="email" required placeholder="tucorreo@ejemplo.com">
 
                     <label for="mensaje">Mensaje:</label>
-                    <textarea id="mensaje" name="mensaje" required placeholder="Escribe tu mensaje..."></textarea>
+                    <textarea id="mensaje" name="mensaje" required placeholder="Escribe aquí..."></textarea>
 
                     <button type="submit">Enviar</button>
                 </form>
