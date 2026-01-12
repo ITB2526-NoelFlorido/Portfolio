@@ -177,4 +177,34 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+/* =========================================
+   5. MENÚ RESPONSIVE (MÓVIL) - ¡ESTO ES LO NUEVO!
+   ========================================= */
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('hamburger-btn');
+    const sidebar = document.querySelector('.sidebar');
+
+    if (hamburger && sidebar) {
+        // Abrir/Cerrar
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('active');
+        });
+
+        // Cerrar al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            if (sidebar.classList.contains('active') && !sidebar.contains(e.target) && e.target !== hamburger) {
+                sidebar.classList.remove('active');
+            }
+        });
+
+        // Cerrar al pulsar enlace
+        const links = sidebar.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+            });
+        });
+    }
+});
 });

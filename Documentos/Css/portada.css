@@ -435,4 +435,39 @@ footer, .main-footer {
         font-size: 0.8rem;
         z-index: 1001; /* Encima del header */
     }
+@media (max-width: 768px) {
+    /* 1. Header visible */
+    .main-header {
+        display: flex; align-items: center; gap: 15px; padding: 15px 20px;
+        background-color: var(--bg-sidebar); color: var(--text-sidebar);
+        position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .main-header h1 { font-size: 1.2rem; margin: 0; color: white; }
+
+    /* 2. Botón Hamburguesa */
+    .hamburger { background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; padding: 0 5px; }
+
+    /* 3. Layout a columna */
+    .main-layout { flex-direction: column; }
+
+    /* 4. Sidebar oculta */
+    .sidebar {
+        position: fixed; top: 0; left: -100%; width: 80%; height: 100vh;
+        z-index: 2000; transition: left 0.3s ease; box-shadow: 4px 0 15px rgba(0,0,0,0.5);
+    }
+    .sidebar.active { left: 0; }
+
+    /* 5. Ajustes de contenido */
+    .content-area { padding: 20px; }
+    .section-header h1 { font-size: 1.8rem; }
+    .section-subtitle { font-size: 1.4rem; }
+
+    /* Proyectos a 1 columna */
+    .projects-container { grid-template-columns: 1fr; }
+    .project-card.wide { grid-column: span 1; }
+    .project-card img { max-width: 100%; }
+
+    /* Botón flotante */
+    .btn { top: 15px; right: 15px; z-index: 1001; font-size: 0.8rem; }
+}
 }
