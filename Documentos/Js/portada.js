@@ -147,57 +147,66 @@ document.addEventListener("DOMContentLoaded", function() {
    3. LÓGICA DEL MENÚ MÓVIL (CORREGIDA)
    ========================================= */
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("JS Cargado correctamente");
 
-    // A. Submenús desplegables
-    document.querySelectorAll('.has-children .menu-title').forEach(title => {
-        title.addEventListener('click', (e) => {
-            e.stopPropagation();
-            title.parentElement.classList.toggle('open');
-        });
-    });
-
-    // B. Elementos del Menú Móvil
-    const hamburgerBtn = document.getElementById('hamburger-btn');
+    // 1. Elementos del Menú
+    const hamburger = document.getElementById('hamburger-btn');
     const closeBtn = document.getElementById('close-sidebar');
     const sidebar = document.getElementById('sidebar-nav');
-    const backdrop = document.getElementById('menu-backdrop');
 
-    // Función para ABRIR el menú
-    function openMenu() {
-        if(sidebar) sidebar.classList.add('active');
-        if(backdrop) backdrop.classList.add('active');
+    // 2. Función Abrir
+    if (hamburger && sidebar) {
+        hamburger.addEventListener('click', (e) => {
+            e.preventDefault(); // Evita saltos raros
+            sidebar.classList.add('active');
+            console.log("Abriendo menú...");
+        });
+    } else {
+        console.error("No encuentro el botón hamburguesa o el sidebar");
     }
 
-    // Función para CERRAR el menú
-    function closeMenu() {
-        if(sidebar) sidebar.classList.remove('active');
-        if(backdrop) backdrop.classList.remove('active');
-    }
-
-    // Eventos
-    if (hamburgerBtn) hamburgerBtn.addEventListener('click', openMenu);
-    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-    if (backdrop) backdrop.addEventListener('click', closeMenu);
-
-    // Cerrar al pulsar un enlace
-    if (sidebar) {
-        sidebar.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', closeMenu);
+    // 3. Función Cerrar (Botón X)
+    if (closeBtn && sidebar) {
+        closeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            sidebar.classList.remove('active');
         });
     }
 
-    // C. Formulario
-    const form = document.getElementById("contact-form");
-    if (form) {
-        form.addEventListener("submit", function(event) {
-            const btn = form.querySelector("button");
-            if (!form.checkValidity()) {
-                btn.classList.add("error-shake");
-                setTimeout(() => btn.classList.remove("error-shake"), 500);
+    // 4. Cerrar al hacer clic en un enlace
+    if (sidebar) {
+        const links = sidebar.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+            });
+        });
+    }
+
+    // 5. Tema Oscuro / Claro (Simple)
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            if (isDark) {
+                document.documentElement.removeAttribute('data-theme');
+                themeBtn.textContent = "Modo oscuro";
             } else {
-                btn.innerHTML = "Enviando ✈️...";
-                btn.style.backgroundColor = "#28a745";
-                btn.style.opacity = "0.9";
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeBtn.textContent = "Modo claro";
+            }
+        });
+    }
+
+    // 6. Carga de Partículas (Segura)
+    if (typeof tsParticles !== 'undefined') {
+        tsParticles.load("particles-bg", {
+            background: { color: "transparent" },
+            particles: {
+                number: { value: 50 },
+                color: { value: "#888888" },
+                links: { enable: true, color: "#888888", distance: 150 },
+                move: { enable: true, speed: 1 }
             }
         });
     }

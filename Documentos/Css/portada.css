@@ -437,52 +437,72 @@ footer, .main-footer {
     }
 @media (max-width: 768px) {
 
-    /* ... (Estilos del header y layout siguen igual) ... */
+    /* A. HEADER FIJO ARRIBA */
+    .main-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--bg-sidebar);
+        color: white;
+        padding: 15px 20px;
+        position: sticky;
+        top: 0;
+        z-index: 1000; /* Encima del contenido */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    .hamburger { background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
 
-    /* 3. MENÚ LATERAL (OFF-CANVAS) - AJUSTADO */
+    /* B. LAYOUT VERTICAL */
+    .main-layout { flex-direction: column; }
+    .content-area { padding: 20px; text-align: center; } /* Centramos todo el contenido */
+
+    /* C. MENÚ MÓVIL (PANTALLA COMPLETA) */
     .sidebar {
         position: fixed;
         top: 0;
-        left: -100%;
-        width: 85%;
+        left: -100%; /* Escondido a la izquierda */
+        width: 100%; /* Ancho completo para que no falle */
         height: 100vh;
-        z-index: 10000;
-        transition: left 0.3s ease-in-out;
-        box-shadow: 4px 0 15px rgba(0,0,0,0.5);
-        text-align: left;
+        background-color: #001a4d; /* Fondo oscuro sólido obligado */
+        z-index: 99999; /* Z-INDEX MÁXIMO (Encima de todo) */
+        transition: left 0.3s ease;
 
-        /* AQUÍ ESTÁ EL CAMBIO IMPORTANTE: */
-        padding-top: 100px; /* Empuja el texto hacia abajo para que no lo tape la X */
-        padding-left: 30px; /* Un poco de aire a los lados */
-        padding-right: 30px;
-        overflow-y: auto;   /* Permite hacer scroll si el menú es muy largo */
+        /* CENTRADO Y ESPACIO SUPERIOR */
+        padding-top: 100px; /* Empuja el texto abajo */
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centra horizontalmente */
     }
 
-    /* Clase para cuando el menú está abierto */
+    /* Clase para ABRIR el menú */
     .sidebar.active {
-        left: 0;
+        left: 0; /* Se mueve al centro */
     }
 
-    /* BOTÓN CERRAR (X) */
+    /* ESTILOS DE LOS ENLACES EN MÓVIL */
+    .sidebar ul { list-style: none; text-align: center; width: 100%; }
+    .sidebar li { margin-bottom: 15px; width: 100%; }
+    .sidebar a { font-size: 1.5rem; display: block; width: 100%; }
+
+    /* D. BOTÓN CERRAR (X) */
     .close-btn {
         display: block;
+        position: absolute;
+        top: 25px;
+        right: 25px;
         background: none;
         border: none;
         color: white;
-        font-size: 3rem;       /* Hacemos la X más grande y visible */
-        position: absolute;
-        top: 20px;            /* Posición fija arriba */
-        right: 25px;          /* Posición fija derecha */
+        font-size: 3rem;
         cursor: pointer;
-        z-index: 10001;       /* Aseguramos que esté encima del texto */
     }
 
-    /* ... (El resto del CSS: backdrop, projects-container, etc. sigue igual) ... */
+    /* E. ORDEN DE PROYECTOS Y FORMULARIO */
+    .projects-container { display: flex; flex-direction: column; }
+    .project-card, .form-box { margin-bottom: 30px; text-align: center; }
+    .project-card img { max-width: 100%; }
 
-    /* Aseguramos que el contenido principal también se vea bien */
-    .content-area {
-        padding: 30px 20px;
-        text-align: center;
-        width: 100%;
-    }
+    /* Ajuste formulario móvil */
+    .form-box input, .form-box textarea { text-align: center; }
+    .form-box button { width: 100%; font-size: 1.2rem; }
 }
