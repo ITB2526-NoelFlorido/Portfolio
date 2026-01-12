@@ -5,8 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Profesional</title>
     <link rel="stylesheet" href="Documentos/Css/portada.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
 </head>
 <body>
+
+    <button id="theme-toggle" class="btn" type="button">Modo oscuro</button>
+
+    <div id="particles-bg"></div>
+    <div class="overlay"></div>
 
     <div class="layout-container">
 
@@ -18,13 +25,11 @@
                     </div>
 
                     <ul class="submenu">
-
                         <li class="menu-item">
                             <div class="menu-title indented">
                                 <a href="#contact-form" class="menu-direct-link">Formulario</a>
                             </div>
                         </li>
-
                         <li class="menu-item has-children">
                             <div class="menu-title indented">
                                 <span class="arrow">▶</span> Proyectos:
@@ -35,7 +40,6 @@
                                 <li class="menu-link"><a href="Listado.html">Listado</a></li>
                             </ul>
                         </li>
-
                     </ul>
                 </li>
             </ul>
@@ -66,26 +70,25 @@
 
             <div class="grey-box form-box">
                 <h2>Formulario</h2>
-<form id="contact-form" action="https://formspree.io/f/mnneevvo" method="POST">
+                <form id="contact-form" action="https://formspree.io/f/mnneevvo" method="POST">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre aquí">
 
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre aquí">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required placeholder="ejemplo@correo.com">
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required placeholder="ejemplo@correo.com">
+                    <label for="mensaje">Mensaje:</label>
+                    <textarea id="mensaje" name="mensaje" required placeholder="Escribe tu mensaje..."></textarea>
 
-    <label for="mensaje">Mensaje:</label>
-    <textarea id="mensaje" name="mensaje" required placeholder="Escribe tu mensaje..."></textarea>
-
-    <button type="submit">Enviar</button>
-</form>
+                    <button type="submit">Enviar</button>
+                </form>
             </div>
 
         </main>
     </div>
 
     <footer>
-        Pie de pagina
+        Portfolio Profesional
     </footer>
 
     <script src="Documentos/Js/portada.js"></script>

@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Proyectos</title>
-    <link rel="stylesheet" href="/Documentos/Css/Listado.css">
+    <link rel="stylesheet" href="Documentos/Css/Listado.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
 </head>
 <body>
+
+    <button id="theme-toggle" class="btn" type="button">Modo oscuro</button>
+
+    <div id="particles-bg"></div>
+    <div class="overlay"></div>
 
     <header class="main-header">
         <h1>Header Global</h1>
@@ -25,7 +32,7 @@
 
                         <li class="menu-item">
                             <div class="menu-title indented">
-                                <a href="index.html" class="menu-direct-link">Formulario</a>
+                                <a href="index.html#contact-form" class="menu-direct-link">Formulario</a>
                             </div>
                         </li>
 
@@ -59,147 +66,118 @@
                         <h3>Web Corporativa "TechSolutions"</h3>
                         <p>Diseño de una landing page moderna para una empresa tecnológica ficticia, utilizando Flexbox y diseño responsive.</p>
                     </li>
-
                     <li>
                         <h3>E-commerce de Zapatillas</h3>
                         <p>Maquetación de una tienda online con grid de productos, carrito de compras flotante y página de detalle de producto.</p>
                     </li>
-
                     <li>
                         <h3>Blog de Viajes "Mundo Libre"</h3>
                         <p>Estructura semántica de un blog con artículos, barra lateral de categorías y sistema de comentarios simulado.</p>
                     </li>
-
                     <li>
                         <h3>Clon de Interfaz de Streaming</h3>
                         <p>Recreación del frontend de una plataforma de video bajo demanda, enfocada en el uso de CSS Grid y carruseles.</p>
                     </li>
-
                     <li>
                         <h3>Calculadora Interactiva</h3>
                         <p>Aplicación funcional de calculadora creada con JavaScript para realizar operaciones matemáticas básicas en el navegador.</p>
                     </li>
-
                     <li>
                         <h3>Weather App Dashboard</h3>
                         <p>Interfaz que muestra el clima actual consumiendo una API externa, con iconos dinámicos según el estado del tiempo.</p>
                     </li>
-
                     <li>
                         <h3>Gestor de Tareas "TaskMaster"</h3>
                         <p>Aplicación para añadir, marcar como completadas y eliminar tareas, utilizando LocalStorage para guardar datos.</p>
                     </li>
-
                     <li>
                         <h3>Juego de Cartas "Memory"</h3>
                         <p>Juego clásico de encontrar parejas desarrollado con lógica de JavaScript y animaciones CSS para el volteo de cartas.</p>
                     </li>
-
                     <li>
                         <h3>Portafolio Personal v1</h3>
                         <p>Primera versión de mi sitio web personal centrado en la tipografía y el uso de espacios en blanco.</p>
                     </li>
-
                     <li>
                         <h3>Formulario de Registro Complejo</h3>
                         <p>Formulario con validaciones en tiempo real de correo, contraseña y fecha, con mensajes de error personalizados.</p>
                     </li>
-
                     <li>
                         <h3>Galería de Fotografía</h3>
                         <p>Grid de imágenes que al hacer clic se abren en pantalla completa (modo Lightbox) con controles de navegación.</p>
                     </li>
-
                     <li>
                         <h3>Web Restaurante "El Sabor"</h3>
                         <p>Sitio web de una sola página (SPA) con menú interactivo, reserva de mesas y mapa de ubicación integrado.</p>
                     </li>
-
                     <li>
                         <h3>Conversor de Divisas</h3>
                         <p>Herramienta que convierte valores entre diferentes monedas utilizando tasas de cambio actualizadas.</p>
                     </li>
-
                     <li>
                         <h3>Reloj y Cronómetro</h3>
                         <p>Visualización de la hora actual con diseño neón y funcionalidad de cronómetro con vueltas.</p>
                     </li>
-
                     <li>
                         <h3>Music Player UI</h3>
                         <p>Interfaz de reproductor de música con barra de progreso interactiva, controles de reproducción y lista de canciones.</p>
                     </li>
-
                     <li>
                         <h3>Piedra, Papel o Tijera</h3>
                         <p>Minijuego interactivo contra la computadora con marcador de puntuación y animaciones de resultado.</p>
                     </li>
-
                     <li>
                         <h3>Landing Page para App Móvil</h3>
                         <p>Página promocional para una aplicación móvil con secciones de características, testimonios y botones de descarga.</p>
                     </li>
-
                     <li>
                         <h3>Password Generator</h3>
                         <p>Herramienta que crea contraseñas seguras aleatorias permitiendo elegir longitud y tipos de caracteres.</p>
                     </li>
-
                     <li>
                         <h3>Trivia Quiz App</h3>
                         <p>Juego de preguntas y respuestas con temporizador y cálculo de puntuación final.</p>
                     </li>
-
                     <li>
                         <h3>Buscador de Pokémon</h3>
                         <p>Aplicación que conecta con la PokéAPI para mostrar estadísticas e imágenes de diferentes Pokémon.</p>
                     </li>
-
                     <li>
                         <h3>Carrusel de Imágenes Automático</h3>
                         <p>Componente de slider programado desde cero con transiciones suaves y controles manuales.</p>
                     </li>
-
                     <li>
                         <h3>Coming Soon Page</h3>
                         <p>Página de espera con una cuenta regresiva animada hasta la fecha de lanzamiento del proyecto.</p>
                     </li>
-
                     <li>
                         <h3>Tabla Periódica Interactiva</h3>
                         <p>Representación de la tabla periódica usando CSS Grid, mostrando detalles de cada elemento al pasar el ratón.</p>
                     </li>
-
                     <li>
                         <h3>Interfaz de Chat</h3>
                         <p>Diseño maquetado de una aplicación de mensajería con lista de contactos y burbujas de conversación.</p>
                     </li>
-
                     <li>
                         <h3>Movie Searcher</h3>
                         <p>Buscador que muestra carátulas, sinopsis y valoraciones de películas usando una base de datos externa.</p>
                     </li>
-
                     <li>
                         <h3>Web con Efecto Parallax</h3>
                         <p>Sitio web narrativo que utiliza el efecto de desplazamiento parallax para crear profundidad en las imágenes de fondo.</p>
                     </li>
-
                     <li>
                         <h3>Profile Card Component</h3>
                         <p>Componente reutilizable de tarjeta de usuario con foto, biografía y enlaces a redes sociales con efectos hover.</p>
                     </li>
-
                     <li>
                         <h3>Menú Responsive Avanzado</h3>
                         <p>Navegación que se transforma en menú de hamburguesa animado en dispositivos móviles sin usar librerías.</p>
                     </li>
-
                     <li>
                         <h3>Clon de Trello Simple</h3>
                         <p>Tablero con listas donde se pueden crear tarjetas y moverlas de una columna a otra (Drag & Drop).</p>
                     </li>
-
                     <li>
                         <h3>Portal de Noticias Tech</h3>
                         <p>Maquetación estilo periódico digital con sección de destacados, noticias recientes y barra lateral de publicidad.</p>
@@ -213,10 +191,10 @@
     </div>
 
     <footer class="main-footer">
-        <p>Pie de pagina</p>
+        <p>Portfolio Profesional</p>
     </footer>
 
-    <script src="/Documentos/Js/portada.js"></script>
+    <script src="Documentos/Js/portada.js"></script>
 
 </body>
 </html>

@@ -1,3 +1,40 @@
+/* =========================================
+   1. VARIABLES DE TEMA (Copiadas del anterior)
+   ========================================= */
+:root {
+    /* MODO CLARO (Fondo Blanco Puro) */
+    --bg-body: #ffffff;
+    --text-main: #333333;
+    --text-subtitle: #666666;
+
+    --bg-sidebar: #003399;
+    --text-sidebar: #ffffff;
+
+    --bg-footer: #666666;
+    --text-footer: #ffffff;
+
+    /* Botón flotante */
+    --btn-bg: #000000;
+    --btn-text: #ffffff;
+}
+
+/* MODO OSCURO */
+[data-theme="dark"] {
+    --bg-body: #121212;
+    --text-main: #f0f0f0;
+    --text-subtitle: #aaaaaa;
+
+    --bg-sidebar: #001a4d;
+    --text-sidebar: #dddddd;
+
+    --bg-footer: #1a1a1a;
+    --text-footer: #dddddd;
+
+    /* Botón flotante */
+    --btn-bg: #ffffff;
+    --btn-text: #000000;
+}
+
 /* --- RESET --- */
 * {
     margin: 0;
@@ -10,8 +47,54 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #fff;
-    color: #333;
+    /* APLICAR VARIABLE DE FONDO */
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
+}
+
+/* --- ESTILOS DEL BOTÓN FLOTANTE --- */
+.btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 99999;
+  padding: 8px 12px;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform .12s ease;
+  font-weight: bold;
+}
+.btn:active { transform: translateY(1px); }
+
+/* --- ESTILOS DE PARTÍCULAS --- */
+#particles-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: transparent;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.05);
+  z-index: -3;
+  pointer-events: none;
+}
+
+.tsparticles-canvas-el {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: -9999 !important;
+  pointer-events: none !important;
 }
 
 /* --- HEADER GLOBAL (Oculto) --- */
@@ -21,24 +104,26 @@ body {
 .main-layout {
     display: flex;
     flex: 1;
+    z-index: 1;
 }
 
 /* =========================================
-   ESTILOS DEL MENÚ (Copiados de portada.css)
+   ESTILOS DEL MENÚ
    ========================================= */
 .sidebar {
-    width: 260px; /* Ancho ajustado */
-    background-color: #003399; /* Azul corporativo */
-    color: white;
+    width: 260px;
+    background-color: var(--bg-sidebar); /* Variable */
+    color: var(--text-sidebar);
     padding: 40px 20px;
     flex-shrink: 0;
     overflow-y: auto;
+    transition: background-color 0.3s;
 }
 
 .menu-root { list-style: none; }
 
 .menu-title {
-    font-size: 1.6rem; /* Texto grande como pediste */
+    font-size: 1.6rem;
     font-weight: bold;
     cursor: pointer;
     display: flex;
@@ -46,6 +131,7 @@ body {
     padding: 8px 0;
     user-select: none;
     gap: 10px;
+    color: inherit;
 }
 
 .menu-title.indented {
@@ -80,7 +166,6 @@ body {
     text-decoration: underline;
 }
 
-/* Animación del desplegable */
 .submenu {
     list-style: none;
     max-height: 0;
@@ -88,27 +173,16 @@ body {
     transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Clase que añade JS cuando se abre */
-.open > .submenu {
-    max-height: 800px;
-}
-
-.open > .menu-title .arrow {
-    transform: rotate(90deg);
-    color: white;
-}
-
-/* =========================================
-   FIN ESTILOS MENÚ
-   ========================================= */
-
+.open > .submenu { max-height: 800px; }
+.open > .menu-title .arrow { transform: rotate(90deg); color: white; }
 
 /* --- SECTION (Contenido) --- */
 .content-area {
     flex: 1;
     display: flex;
     flex-direction: column;
-    background-color: white;
+    /* IMPORTANTE: Transparente para que se vean las partículas del body */
+    background-color: transparent;
     padding: 40px 50px;
 }
 
@@ -118,13 +192,13 @@ body {
 }
 .section-header h1 {
     font-size: 1.8rem;
-    color: #666;
+    color: var(--text-subtitle); /* Variable */
     font-weight: normal;
     margin-bottom: 5px;
 }
 .section-header h2 {
     font-size: 2.2rem;
-    color: #000;
+    color: var(--text-main); /* Variable */
     font-weight: bold;
 }
 
@@ -140,36 +214,43 @@ body {
     max-width: 500px;
     height: auto;
     display: block;
+    border-radius: 4px; /* Un pequeño detalle estético */
 }
 
 .text-container h3 {
     font-size: 1.4rem;
     font-weight: bold;
     margin-bottom: 10px;
-    color: #000;
+    color: var(--text-main); /* Variable */
 }
 .text-container p {
     margin-bottom: 15px;
     line-height: 1.5;
     text-align: justify;
-    font-size: 1.1rem; /* Texto legible */
+    font-size: 1.1rem;
+    color: var(--text-main); /* Variable para el texto también */
+}
+
+strong {
+    color: var(--text-main); /* Asegura que las negritas se vean bien */
 }
 
 /* Footer Interno y Global */
 .section-footer { display: none; }
 
 .main-footer {
-    background-color: #666;
-    color: white;
+    background-color: var(--bg-footer); /* Variable */
+    color: var(--text-footer);
     text-align: center;
     padding: 15px;
     font-size: 1.2rem;
+    z-index: 1;
 }
+
 /* --- Estilo para el enlace del menú que no es desplegable --- */
 .menu-direct-link {
     color: white;
     text-decoration: none;
-    /* Heredamos la fuente y tamaño del título padre */
     font-weight: bold;
     font-size: inherit;
     transition: opacity 0.2s;
@@ -179,20 +260,16 @@ body {
     text-decoration: underline;
     opacity: 0.8;
 }
-/* --- FORZAR ESTILO BLANCO EN ENLACES DEL MENÚ --- */
 
-/* Apuntamos a todos los enlaces (a) dentro de la barra lateral (.sidebar),
-   incluyendo el estado ":visited" (cuando ya le has dado click). */
+/* --- ENLACES SIDEBAR --- */
 .sidebar a,
 .sidebar a:link,
 .sidebar a:visited,
 .sidebar a:active {
-    color: white !important; /* ¡Importante! Fuerza el color blanco siempre */
-    text-decoration: none;   /* Quita el subrayado por defecto */
-    cursor: pointer;         /* Asegura que salga la manita al pasar el ratón */
+    color: white !important;
+    text-decoration: none;
+    cursor: pointer;
 }
-
-/* Opcional: Mantenemos un efecto al pasar el ratón por encima para que se sepa que es clicable */
 .sidebar a:hover {
-    text-decoration: underline; /* O puedes poner "opacity: 0.8;" si prefieres que se oscurezca un poco */
+    text-decoration: underline;
 }

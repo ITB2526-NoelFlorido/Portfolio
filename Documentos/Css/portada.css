@@ -1,3 +1,48 @@
+/* =========================================
+   1. VARIABLES DE TEMA (Sistema nuevo)
+   ========================================= */
+:root {
+    /* --- MODO CLARO --- */
+    --bg-body: #ffffff;          /* AHORA ES BLANCO PURO */
+    --text-main: #000000;        /* Texto negro */
+    --text-subtitle: #666666;    /* Subtítulos gris */
+
+    --bg-sidebar: #003399;       /* Azul Sidebar original */
+    --text-sidebar: #ffffff;
+
+    --bg-box: #D9D9D9;           /* Gris cajas original */
+    --text-box: #ffffff;         /* Texto blanco en cajas grises */
+
+    --bg-footer: #555555;        /* Gris footer */
+    --bg-input: rgba(255, 255, 255, 0.5);
+    --text-input: #333;
+
+    /* Botón flotante */
+    --btn-bg: #000000;
+    --btn-text: #ffffff;
+}
+
+/* MODO OSCURO (Se activa con JS) */
+[data-theme="dark"] {
+    --bg-body: #121212;          /* Fondo casi negro */
+    --text-main: #f0f0f0;        /* Texto blanco */
+    --text-subtitle: #aaaaaa;
+
+    --bg-sidebar: #001a4d;       /* Azul muy oscuro */
+    --text-sidebar: #dddddd;
+
+    --bg-box: #2d2d2d;           /* Cajas gris oscuro */
+    --text-box: #e0e0e0;
+
+    --bg-footer: #1a1a1a;
+    --bg-input: rgba(0, 0, 0, 0.5);
+    --text-input: #fff;
+
+    /* Botón flotante */
+    --btn-bg: #ffffff;
+    --btn-text: #000000;
+}
+
 /* --- RESET BÁSICO --- */
 * {
     margin: 0;
@@ -10,30 +55,78 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #eef4ff;
+    /* APLICAMOS VARIABLES */
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative; /* Para z-index del contexto */
 }
 
+/* --- ESTILOS DEL BOTÓN FLOTANTE --- */
+.btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 99999;
+  padding: 8px 12px;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform .12s ease;
+  font-weight: bold;
+}
+.btn:active { transform: translateY(1px); }
+
+/* --- ESTILOS DE PARTÍCULAS --- */
+#particles-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: transparent;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.05); /* Muy sutil */
+  z-index: -3;
+  pointer-events: none;
+}
+
+/* Forzar canvas de partículas detrás */
+.tsparticles-canvas-el {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: -9999 !important;
+  pointer-events: none !important;
+}
+
+/* --- LAYOUT ORIGINAL --- */
 .layout-container {
     display: flex;
     flex: 1;
+    z-index: 1; /* Por encima de las partículas */
 }
 
 /* --- BARRA LATERAL (NAV) --- */
 .sidebar {
     width: 260px;
-    background-color: #003399;
-    color: white;
+    background-color: var(--bg-sidebar); /* Variable */
+    color: var(--text-sidebar);
     padding: 40px 20px;
     flex-shrink: 0;
     overflow-y: auto;
+    transition: background-color 0.3s;
 }
 
-.menu-root {
-    list-style: none;
-}
+.menu-root { list-style: none; }
 
 .menu-title {
-    /* Aumentado de 1.4rem a 1.6rem */
     font-size: 1.6rem;
     font-weight: bold;
     cursor: pointer;
@@ -42,16 +135,16 @@ body {
     padding: 8px 0;
     user-select: none;
     gap: 10px;
+    color: inherit;
 }
 
 .menu-title.indented {
     padding-left: 20px;
-    /* Aumentado de 1.2rem a 1.3rem */
     font-size: 1.3rem;
 }
 
 .arrow {
-    font-size: 0.9rem; /* Un pelín más grande */
+    font-size: 0.9rem;
     display: inline-block;
     transition: transform 0.2s ease;
     color: rgba(255,255,255,0.7);
@@ -64,7 +157,6 @@ body {
 }
 
 .menu-link a {
-    /* Aumentado de 0.95rem a 1.1rem */
     font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
@@ -86,14 +178,8 @@ body {
     transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.open > .submenu {
-    max-height: 800px;
-}
-
-.open > .menu-title .arrow {
-    transform: rotate(90deg);
-    color: white;
-}
+.open > .submenu { max-height: 800px; }
+.open > .menu-title .arrow { transform: rotate(90deg); color: white; }
 
 /* --- CONTENIDO --- */
 .content {
@@ -102,27 +188,26 @@ body {
 }
 
 header h1 {
-    /* Aumentado de 2.5rem a 3rem (más impacto) */
     font-size: 3rem;
-    color: #000;
+    color: var(--text-main); /* Variable */
     margin-bottom: 5px;
 }
 
 .section-subtitle {
-    /* Aumentado de 1.5rem a 1.8rem */
     font-size: 1.8rem;
-    color: #666;
+    color: var(--text-subtitle); /* Variable */
     font-weight: bold;
     margin-bottom: 30px;
 }
 
 /* --- CAJAS GRISES --- */
 .grey-box {
-    background-color: #D9D9D9;
+    background-color: var(--bg-box); /* Variable */
     padding: 30px;
     border-radius: 5px;
-    color: white;
+    color: var(--text-box); /* Variable */
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: background-color 0.3s;
 }
 
 /* --- GRID ASIMÉTRICO --- */
@@ -139,27 +224,19 @@ header h1 {
     gap: 20px;
 }
 
-.project-card.wide {
-    grid-column: span 2;
-}
+.project-card.wide { grid-column: span 2; }
 
 .project-card h3 {
-    /* Aumentado de 1.4rem a 1.7rem */
     font-size: 1.7rem;
     margin: 0;
 }
 
-/* === NUEVO: CORRECCIÓN PARA ENLACES EN TÍTULOS DE PROYECTOS === */
 .project-card h3 a {
-    color: white !important; /* Fuerza el color blanco */
-    text-decoration: none;   /* Quita el subrayado */
+    color: white !important; /* Siempre blanco en cajas */
+    text-decoration: none;
 }
 
-/* Opcional: Si quieres que al pasar el ratón se note que es un link */
-.project-card h3 a:hover {
-    text-decoration: underline;
-}
-/* ============================================================= */
+.project-card h3 a:hover { text-decoration: underline; }
 
 .project-card img {
     align-self: flex-start;
@@ -170,60 +247,49 @@ header h1 {
 }
 
 .project-card p {
-    /* Aumentado de 0.95rem a 1.15rem (mucho más legible) */
     font-size: 1.15rem;
-    line-height: 1.6; /* Un poco más de aire entre líneas */
+    line-height: 1.6;
     margin: 0;
 }
 
-/* =========================================
-   FORMULARIO (Adaptado al HTML sin clases)
-   ========================================= */
-
-/* El contenedor principal (el propio formulario) */
+/* --- FORMULARIO --- */
 #contact-form {
-    /* Estilo "Grey Box" aplicado al formulario */
-    background-color: #D9D9D9;
-    padding: 30px;
-    border-radius: 5px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    margin-top: 30px;
-
-    /* Flexbox para poner todo en columna vertical */
+    /* Fondo heredado del grey-box donde está metido, o forzado */
+    /* background-color: var(--bg-box);  <-- Ya lo tiene el padre .form-box */
     display: flex;
     flex-direction: column;
 }
 
-/* Las etiquetas (Nombre, Email...) */
 #contact-form label {
     font-size: 1.5rem;
-    color: white; /* Blanco para que resalte sobre el gris */
+    color: var(--text-box); /* Variable */
     font-weight: bold;
-    margin-bottom: 5px; /* Espacio entre el texto y la caja */
-    margin-top: 15px;   /* Espacio respecto al campo anterior */
+    margin-bottom: 5px;
+    margin-top: 15px;
 }
 
-/* Quitar margen al primer label para que no quede hueco arriba */
-#contact-form label:first-child {
-    margin-top: 0;
-}
+#contact-form label:first-child { margin-top: 0; }
 
-/* Los campos de escribir (Input y Textarea) */
 #contact-form input,
 #contact-form textarea {
-    background: rgba(255, 255, 255, 0.5); /* Blanco semitransparente */
-    border: none;
+    background: var(--bg-input); /* Variable */
+    border: 1px solid transparent;
     padding: 15px;
     border-radius: 3px;
     font-size: 1.1rem;
-    color: #333;
-    width: 100%;      /* Que ocupen todo el ancho */
-    outline: none;    /* Quita el borde azul al hacer clic */
+    color: var(--text-input); /* Variable */
+    width: 100%;
+    outline: none;
 }
 
-/* El botón de enviar */
+/* Foco en inputs */
+#contact-form input:focus,
+#contact-form textarea:focus {
+    border: 1px solid #aaa;
+}
+
 #contact-form button {
-    margin-top: 25px; /* Separación del botón con lo de arriba */
+    margin-top: 25px;
     padding: 15px;
     background-color: #555555;
     color: white;
@@ -236,40 +302,31 @@ header h1 {
     width: 100%;
 }
 
-#contact-form button:hover {
-    background-color: #333;
-}
+#contact-form button:hover { background-color: #333; }
 
 /* --- FOOTER --- */
 footer {
-    background-color: #555555;
+    background-color: var(--bg-footer); /* Variable */
     color: white;
     text-align: center;
     padding: 20px;
-    font-size: 1.3rem; /* Ligeramente más grande */
+    font-size: 1.3rem;
     margin-top: auto;
+    z-index: 1;
 }
-/* --- FORZAR ESTILO BLANCO EN ENLACES DEL MENÚ --- */
 
-/* Apuntamos a todos los enlaces (a) dentro de la barra lateral (.sidebar),
-   incluyendo el estado ":visited" (cuando ya le has dado click). */
+/* --- ENLACES SIDEBAR --- */
 .sidebar a,
 .sidebar a:link,
 .sidebar a:visited,
 .sidebar a:active {
-    color: white !important; /* ¡Importante! Fuerza el color blanco siempre */
-    text-decoration: none;   /* Quita el subrayado por defecto */
-    cursor: pointer;         /* Asegura que salga la manita al pasar el ratón */
+    color: white !important;
+    text-decoration: none;
+    cursor: pointer;
 }
+.sidebar a:hover { text-decoration: underline; }
 
-/* Opcional: Mantenemos un efecto al pasar el ratón por encima para que se sepa que es clicable */
-.sidebar a:hover {
-    text-decoration: underline; /* O puedes poner "opacity: 0.8;" si prefieres que se oscurezca un poco */
-}
-
-/* --- EFECTOS DEL FORMULARIO --- */
-
-/* 1. Definimos la animación de temblor */
+/* --- ANIMACIÓN ERROR --- */
 @keyframes shake {
     0% { transform: translateX(0); }
     25% { transform: translateX(-5px); }
@@ -278,9 +335,8 @@ footer {
     100% { transform: translateX(0); }
 }
 
-/* 2. Clase que Javascript activará cuando haya error */
 .error-shake {
     animation: shake 0.4s ease-in-out;
-    background-color: #ff4d4d !important; /* Rojo alerta */
+    background-color: #ff4d4d !important;
     border: 1px solid #cc0000;
 }

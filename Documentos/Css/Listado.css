@@ -1,3 +1,40 @@
+/* =========================================
+   1. VARIABLES DE TEMA
+   ========================================= */
+:root {
+    /* --- MODO CLARO --- */
+    --bg-body: #ffffff;          /* Blanco Puro */
+    --text-main: #000000;        /* Texto negro */
+    --text-subtitle: #555555;    /* Texto secundario */
+
+    --bg-sidebar: #003399;
+    --text-sidebar: #ffffff;
+
+    --bg-footer: #777777;
+    --text-footer: #ffffff;
+
+    /* Botón flotante */
+    --btn-bg: #000000;
+    --btn-text: #ffffff;
+}
+
+/* --- MODO OSCURO --- */
+[data-theme="dark"] {
+    --bg-body: #121212;          /* Fondo oscuro */
+    --text-main: #f0f0f0;        /* Texto blanco */
+    --text-subtitle: #aaaaaa;    /* Texto secundario claro */
+
+    --bg-sidebar: #001a4d;
+    --text-sidebar: #dddddd;
+
+    --bg-footer: #1a1a1a;
+    --text-footer: #dddddd;
+
+    /* Botón flotante */
+    --btn-bg: #ffffff;
+    --btn-text: #000000;
+}
+
 /* --- RESET BÁSICO --- */
 * {
     margin: 0;
@@ -10,32 +47,79 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #fff;
+    /* Aplicamos variables */
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
 }
 
-/* --- 1. HEADER GLOBAL (Oculto como en el diseño) --- */
-.main-header {
-    display: none;
+/* --- ESTILOS DEL BOTÓN FLOTANTE --- */
+.btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 99999;
+  padding: 8px 12px;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform .12s ease;
+  font-weight: bold;
+}
+.btn:active { transform: translateY(1px); }
+
+/* --- ESTILOS DE PARTÍCULAS --- */
+#particles-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: transparent;
 }
 
-/* --- LAYOUT PRINCIPAL (Nav + Contenido) --- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.05);
+  z-index: -3;
+  pointer-events: none;
+}
+
+.tsparticles-canvas-el {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: -9999 !important;
+  pointer-events: none !important;
+}
+
+/* --- 1. HEADER GLOBAL (Oculto) --- */
+.main-header { display: none; }
+
+/* --- LAYOUT PRINCIPAL --- */
 .main-layout {
     display: flex;
-    flex: 1; /* Ocupa todo el espacio vertical disponible */
+    flex: 1;
+    z-index: 1;
 }
 
 /* =========================================
-   2. BARRA LATERAL (Idéntica a la anterior)
+   2. BARRA LATERAL
    ========================================= */
 .sidebar {
     width: 260px;
-    background-color: #003399; /* Azul Corporativo */
-    color: white;
+    background-color: var(--bg-sidebar); /* Variable */
+    color: var(--text-sidebar);
     padding: 40px 20px;
     flex-shrink: 0;
+    transition: background-color 0.3s;
 }
 
-/* Estilos del menú para que funcionen igual */
+/* Menú Estilos */
 .menu-root { list-style: none; }
 
 .menu-title {
@@ -46,6 +130,7 @@ body {
     align-items: center;
     padding: 8px 0;
     gap: 10px;
+    color: inherit;
 }
 
 .menu-title.indented {
@@ -57,9 +142,10 @@ body {
     font-size: 0.9rem;
     display: inline-block;
     transition: transform 0.2s ease;
+    color: rgba(255,255,255,0.7);
 }
 
-/* Enlaces del menú (Forzamos blanco siempre) */
+/* Enlaces del menú (Forzamos blanco) */
 .sidebar a,
 .sidebar a:link,
 .sidebar a:visited,
@@ -68,9 +154,7 @@ body {
     text-decoration: none;
     font-weight: bold;
 }
-.sidebar a:hover {
-    text-decoration: underline;
-}
+.sidebar a:hover { text-decoration: underline; }
 
 /* Submenús */
 .submenu {
@@ -80,7 +164,7 @@ body {
     transition: max-height 0.4s ease;
 }
 .open > .submenu { max-height: 800px; }
-.open > .menu-title .arrow { transform: rotate(90deg); }
+.open > .menu-title .arrow { transform: rotate(90deg); color: white; }
 
 .menu-link {
     padding-left: 45px;
@@ -88,62 +172,56 @@ body {
 }
 
 /* =========================================
-   3. ZONA DE CONTENIDO (La parte blanca)
+   3. ZONA DE CONTENIDO
    ========================================= */
 .content-area {
     flex: 1;
-    padding: 50px 60px; /* Espaciado amplio */
+    padding: 50px 60px;
     display: flex;
     flex-direction: column;
+    background-color: transparent; /* Transparente para las partículas */
 }
 
-/* 3.1 TÍTULOS DE LA SECCIÓN */
-.section-header {
-    margin-bottom: 20px;
-}
+/* 3.1 TÍTULOS */
+.section-header { margin-bottom: 20px; }
 
-/* Título principal: "Mis Proyectos" */
 .section-header h1 {
-    font-size: 2.5rem; /* Muy grande y negro */
+    font-size: 2.5rem;
     font-weight: bold;
-    color: #000;
+    color: var(--text-main); /* Variable */
     margin-bottom: 5px;
 }
 
-/* Subtítulo: "Galería Principal" */
 .section-header h2 {
     font-size: 1.8rem;
-    color: #777; /* Gris, como en la imagen */
+    color: var(--text-subtitle); /* Variable */
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-/* 3.2 LA LISTA DE PROYECTOS (Lo nuevo) */
-.projects-list-article {
-    flex: 1;
-}
+/* 3.2 LA LISTA DE PROYECTOS */
+.projects-list-article { flex: 1; }
 
 .projects-list {
-    /* CAMBIO IMPORTANTE AQUÍ: decimal para números */
     list-style-type: decimal;
-    /* Aumentado a 40px para que quepan bien los números de dos cifras (10, 11...) */
     padding-left: 40px;
     margin-top: 10px;
+    /* Los números de la lista heredan el color del li */
 }
 
 .projects-list li {
-    font-size: 1.3rem;     /* Tamaño de letra grande */
-    font-weight: bold;     /* Negrita */
-    color: #000;           /* Negro puro */
-    margin-bottom: 20px;   /* Separación entre cada proyecto */
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--text-main); /* Variable: Negro en claro, Blanco en oscuro */
+    margin-bottom: 20px;
     line-height: 1.4;
 }
 
-/* Título del proyecto (h3) dentro de la lista */
+/* Título (h3) dentro de la lista */
 .projects-list li h3 {
     font-size: inherit;
     font-weight: inherit;
-    display: inline-block; /* Mejor que inline para control */
+    display: inline-block;
     margin-bottom: 5px;
 }
 
@@ -151,24 +229,22 @@ body {
 .projects-list li p {
     font-weight: normal;
     font-size: 1rem;
-    color: #555;
+    color: var(--text-subtitle); /* Variable */
     margin-top: 5px;
     margin-bottom: 0;
 }
 
-/* Footer interno (oculto en el diseño visual) */
-.section-footer {
-    display: none;
-}
+.section-footer { display: none; }
 
 /* =========================================
-   4. FOOTER GLOBAL (Barra Gris)
+   4. FOOTER GLOBAL
    ========================================= */
 .main-footer {
-    background-color: #777; /* Gris medio */
-    color: white;
+    background-color: var(--bg-footer); /* Variable */
+    color: var(--text-footer);
     text-align: center;
     padding: 10px;
     font-size: 1.2rem;
-    margin-top: auto; /* Empuja el footer al fondo si hay poco contenido */
+    margin-top: auto;
+    z-index: 1;
 }
