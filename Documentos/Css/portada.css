@@ -340,3 +340,65 @@ footer {
     background-color: #ff4d4d !important;
     border: 1px solid #cc0000;
 }
+
+/* =========================================
+   RESPONSIVE & MENU HAMBURGUESA
+   (Sustituye el bloque responsive anterior por este)
+   ========================================= */
+
+/* Por defecto en PC: El botón hamburguesa NO existe */
+.hamburger-btn {
+    display: none;
+}
+
+/* Solo en pantallas pequeñas (Móvil/Tablet) */
+@media screen and (max-width: 768px) {
+
+    /* 1. Estilo del Botón Hamburguesa */
+    .hamburger-btn {
+        display: block; /* ¡Ahora sí aparece! */
+        width: 100%;
+        background-color: var(--bg-sidebar); /* Mismo azul que el menú */
+        color: white;
+        border: none;
+        padding: 15px;
+        font-size: 1.8rem;
+        cursor: pointer;
+        text-align: left;
+        padding-left: 20px;
+        z-index: 100;
+    }
+
+    /* 2. Layout Vertical */
+    .layout-container {
+        flex-direction: column;
+    }
+
+    /* 3. La Barra Lateral (Menú) */
+    .sidebar {
+        width: 100%;
+        /* TRUCO: Por defecto está oculta en móvil */
+        display: none;
+        border-bottom: 2px solid rgba(255,255,255,0.1);
+    }
+
+    /* Cuando añadimos la clase .active con JS, se muestra */
+    .sidebar.active {
+        display: block;
+        animation: slideDown 0.3s ease-out;
+    }
+
+    /* 4. Ajustes de contenido (Igual que antes) */
+    .content { padding: 20px; }
+    header h1 { font-size: 2rem; }
+    .projects-container { grid-template-columns: 1fr; }
+    .project-card.wide { grid-column: span 1; }
+    .project-card img { align-self: center; max-width: 100%; }
+    .btn { top: 10px; right: 10px; padding: 6px 10px; font-size: 0.8rem; }
+}
+
+/* Animación suave al abrir el menú */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

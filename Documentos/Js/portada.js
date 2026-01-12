@@ -133,3 +133,46 @@ document.addEventListener("DOMContentLoaded", function() {
         btn.style.opacity = "0.9";
     });
 });
+
+/* =========================================
+   5. MENÚ HAMBURGUESA (MÓVIL)
+   ========================================= */
+document.addEventListener('DOMContentLoaded', () => {
+
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    // Solo ejecutamos esto si el botón existe (es decir, en el HTML)
+    if (menuToggle && sidebar) {
+
+        // 1. Abrir / Cerrar el menú al tocar el botón
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+
+            // Cambiar el icono (☰ a ✕) y el texto
+            if (sidebar.classList.contains('active')) {
+                menuToggle.innerHTML = "✕ Cerrar";
+                // Opcional: Bloquear el scroll del body mientras el menú está abierto
+                document.body.style.overflow = "hidden";
+            } else {
+                menuToggle.innerHTML = "☰";
+                document.body.style.overflow = "auto";
+            }
+        });
+
+        // 2. (Mejora UX) Cerrar el menú automáticamente al hacer clic en un enlace
+        // Esto evita que el menú se quede abierto tapando el contenido al navegar
+        const sidebarLinks = sidebar.querySelectorAll('a');
+
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                // Solo cerramos si estamos en vista móvil
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                    menuToggle.innerHTML = "☰";
+                    document.body.style.overflow = "auto";
+                }
+            });
+        });
+    }
+});
