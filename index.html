@@ -19,6 +19,7 @@
     <header class="main-header">
         <button class="hamburger" id="hamburger-btn">☰</button>
         <h1>Mi Porfolio</h1>
+        <div style="width: 40px;"></div>
     </header>
 
     <div class="main-layout">
@@ -28,19 +29,24 @@
 
             <ul class="menu-root">
                 <li class="menu-item has-children">
-                    <div class="menu-title"><span class="arrow">▶</span> Porfolio:</div>
+                    <div class="menu-title">
+                        <span class="arrow">▶</span> Porfolio:
+                    </div>
                     <ul class="submenu">
                         <li class="menu-item">
-                            <div class="menu-title indented"><a href="#contact-form" class="menu-direct-link">Formulario</a></div>
+                             <a href="#contact-form" class="menu-link">Ir al Formulario</a>
                         </li>
-                        <li class="menu-item has-children">
-                            <div class="menu-title indented"><span class="arrow">▶</span> Proyectos:</div>
-                            <ul class="submenu">
-                                <li class="menu-link"><a href="Proyecto1.html">Proyecto 1</a></li>
-                                <li class="menu-link"><a href="Proyecto2.html">Proyecto 2</a></li>
-                                <li class="menu-link"><a href="Listado.html">Listado</a></li>
-                            </ul>
-                        </li>
+                    </ul>
+                </li>
+
+                <li class="menu-item has-children">
+                    <div class="menu-title">
+                        <span class="arrow">▶</span> Proyectos:
+                    </div>
+                    <ul class="submenu">
+                        <li class="menu-item"><a href="Proyecto1.html" class="menu-link">Proyecto 1</a></li>
+                        <li class="menu-item"><a href="Proyecto2.html" class="menu-link">Proyecto 2</a></li>
+                        <li class="menu-item"><a href="Listado.html" class="menu-link">Listado</a></li>
                     </ul>
                 </li>
             </ul>
@@ -50,7 +56,7 @@
 
             <header class="section-header">
                 <h1>Porfolio profesional</h1>
-                <p class="section-subtitle">Proyectos:</p>
+                <p class="section-subtitle">Mis Proyectos:</p>
             </header>
 
             <div class="projects-container">
@@ -65,18 +71,17 @@
                     <img src="Documentos/Imagenes/caja-oficial-negro-gris-para-raspberry-pi-3.jpg" alt="Imagen Proyecto">
                     <p>Servidor SFTP en raspberry pi 3.</p>
                 </article>
-
             </div>
 
-            <div class="grey-box form-box">
+            <div class="grey-box form-box" id="contact-form">
                 <h2>Formulario</h2>
-                <form id="contact-form" action="https://formspree.io/f/mnneevvo" method="POST">
+                <form action="https://formspree.io/f/mnneevvo" method="POST">
                     <label for="nombre">Nombre:</label>
                     <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required placeholder="Email">
                     <label for="mensaje">Mensaje:</label>
-                    <textarea id="mensaje" name="mensaje" required placeholder="Mensaje..."></textarea>
+                    <textarea id="mensaje" name="mensaje" required placeholder="Escribe algo..."></textarea>
                     <button type="submit">Enviar</button>
                 </form>
             </div>
@@ -85,7 +90,7 @@
     </div>
 
     <footer class="main-footer">
-        <p>Portfolio Profesional</p>
+        <p>© 2024 - Portfolio Profesional</p>
     </footer>
 
     <script src="Documentos/Js/portada.js"></script>

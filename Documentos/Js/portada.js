@@ -2,105 +2,141 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("Sistema JS cargado correctamente");
 
     /* =========================================
-       1. VARIABLES GLOBALES
+       1. VARIABLES Y SELECTORES GLOBALES
        ========================================= */
     const hamburger = document.getElementById('hamburger-btn');
     const closeBtn = document.getElementById('close-sidebar');
     const sidebar = document.getElementById('sidebar-nav');
+    const backdrop = document.getElementById('menu-backdrop'); // El fondo oscuro
     const themeBtn = document.getElementById('theme-toggle');
     const root = document.documentElement;
     const contactForm = document.getElementById("contact-form");
 
     /* =========================================
-       2. LÓGICA DEL MENÚ MÓVIL
+       2. LÓGICA DEL MENÚ MÓVIL (Sidebar)
        ========================================= */
-    // Abrir menú
-    if (hamburger && sidebar) {
+
+    // Función para abrir
+    function openMenu() {
+        if (sidebar) sidebar.classList.add('active');
+        if (backdrop) backdrop.classList.add('active');
+    }
+
+    // Función para cerrar
+    function closeMenu() {
+        if (sidebar) sidebar.classList.remove('active');
+        if (backdrop) backdrop.classList.remove('active');
+    }
+
+    // Evento: Botón Hamburguesa
+    if (hamburger) {
         hamburger.addEventListener('click', (e) => {
             e.preventDefault();
-            sidebar.classList.add('active');
+            openMenu();
         });
     }
 
-    // Cerrar menú con botón X
-    if (closeBtn && sidebar) {
+    // Evento: Botón X (Cerrar)
+    if (closeBtn) {
         closeBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            sidebar.classList.remove('active');
+            closeMenu();
         });
     }
 
-    // Cerrar menú al hacer clic en un enlace (para navegar)
+    // Evento: Clic en el fondo oscuro (Backdrop)
+    if (backdrop) {
+        backdrop.addEventListener('click', closeMenu);
+    }
+
+    // Evento: Cerrar al hacer clic en un enlace final (no desplegable)
     if (sidebar) {
-        const links = sidebar.querySelectorAll('a');
+        const links = sidebar.querySelectorAll('.menu-link'); // Seleccionamos los enlaces finales
         links.forEach(link => {
-            link.addEventListener('click', () => {
-                sidebar.classList.remove('active');
-            });
+            link.addEventListener('click', closeMenu);
         });
     }
 
-    // Lógica de acordeón (Submenús)
-    const menuItems = document.querySelectorAll('.has-children');
-    menuItems.forEach(item => {
-        const title = item.querySelector('.menu-title');
-        if(title) {
-            title.addEventListener('click', (e) => {
-                // Si es móvil, no hacemos nada (ya están abiertos)
-                if(window.innerWidth > 768) {
-                    if (e.target.tagName !== 'A') {
-                        e.stopPropagation();
-                        item.classList.toggle('open');
-                    }
-                }
-            });
-        }
+    /* =========================================
+       3. LÓGICA DE SUBMENÚS (Acordeón)
+       ========================================= */
+    // Seleccionamos los títulos que abren submenús
+    const menuTitles = document.querySelectorAll('.has-children .menu-title');
+
+    menuTitles.forEach(title => {
+        title.addEventListener('click', (e) => {
+            // Evitamos que actúe como link si queremos que despliegue
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Buscamos el padre (li) para ponerle la clase 'open'
+            const parentLi = title.parentElement;
+
+            // Alternar clase (abrir/cerrar)
+            parentLi.classList.toggle('open');
+        });
     });
 
     /* =========================================
-       3. MODO OSCURO & PARTÍCULAS
+       4. LÓGICA DEL MODO OSCURO Y PARTÍCULAS
        ========================================= */
 
-    function loadParticles(colorHex) {
+    // Función para recargar partículas con el color correcto
+    function updateParticles(colorHex) {
+        // Verificamos si la librería tsParticles está cargada
         if (typeof tsParticles === 'undefined') return;
 
         tsParticles.load("particles-bg", {
-            fullScreen: { enable: false },
+            fullScreen: { enable: false }, // Importante: false para respetar el div
             background: { color: "transparent" },
             particles: {
-                number: { value: 40 },
+                number: { value: 45 },
                 color: { value: colorHex },
-                links: { enable: true, color: colorHex, distance: 150, opacity: 0.4 },
+                links: {
+                    enable: true,
+                    color: colorHex,
+                    distance: 150,
+                    opacity: 0.3
+                },
                 move: { enable: true, speed: 1 },
                 opacity: { value: 0.5 },
                 size: { value: 3 }
+            },
+            interactivity: {
+                events: {
+                    onHover: { enable: true, mode: "grab" },
+                    onClick: { enable: true, mode: "push" }
+                }
             }
         });
     }
 
+    // Función principal para aplicar el tema
     function applyTheme(isDark) {
         if (isDark) {
+            // Activar modo oscuro
             root.setAttribute('data-theme', 'dark');
             if (themeBtn) themeBtn.textContent = 'Modo claro';
-            loadParticles("#ffffff"); // Partículas blancas
+            updateParticles("#ffffff"); // Partículas Blancas
         } else {
+            // Activar modo claro
             root.removeAttribute('data-theme');
             if (themeBtn) themeBtn.textContent = 'Modo oscuro';
-            loadParticles("#2563eb"); // Partículas azules
+            updateParticles("#000000"); // Partículas Negras (para que se vean en fondo blanco)
         }
     }
 
-    // Cargar preferencia guardada o del sistema
+    // 1. Verificar preferencia guardada o del sistema al cargar
     const savedTheme = localStorage.getItem('site-theme');
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
         applyTheme(true);
     } else {
         applyTheme(false);
     }
 
-    // Evento Click Botón Tema
+    // 2. Evento del botón de cambio de tema
     if (themeBtn) {
         themeBtn.addEventListener('click', () => {
             const isDarkNow = root.getAttribute('data-theme') === 'dark';
@@ -115,26 +151,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* =========================================
-       4. FORMULARIO
+       5. LÓGICA DEL FORMULARIO
        ========================================= */
     if (contactForm) {
         contactForm.addEventListener("submit", function(event) {
             const btn = contactForm.querySelector("button");
 
-            // Validación visual
+            // Validación visual (Efecto temblor)
             if (!contactForm.checkValidity()) {
                 if (btn) {
                     btn.classList.add("error-shake");
-                    setTimeout(() => btn.classList.remove("error-shake"), 500);
+                    setTimeout(() => {
+                        btn.classList.remove("error-shake");
+                    }, 500);
                 }
-                // Deja que el navegador maneje los mensajes nativos
+                // Dejamos que el navegador muestre sus mensajes de error nativos
                 return;
             }
 
-            // Efecto de envío
+            // Efecto visual de "Enviando..."
             if (btn) {
+                const originalText = btn.innerHTML;
                 btn.innerHTML = "Enviando ✈️...";
                 btn.style.opacity = "0.7";
+                btn.style.cursor = "wait";
             }
         });
     }
