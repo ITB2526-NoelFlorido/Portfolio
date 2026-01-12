@@ -354,12 +354,6 @@ footer {
 /* Solo en pantallas pequeñas (Móvil/Tablet) */
 @media screen and (max-width: 768px) {
 
-    /* AÑADE ESTO PRIMERO PARA PROBAR */
-    body {
-        background-color: red !important;
-    }
-
-    /* ... aquí sigue el resto del código que te pasé ... */
     /* 1. Estilo del Botón Hamburguesa */
     .hamburger-btn {
         display: block; /* ¡Ahora sí aparece! */
