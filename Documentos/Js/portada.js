@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Sistema cargado correctamente");
+    console.log("Sistema JS cargado correctamente");
 
     /* =========================================
        1. VARIABLES GLOBALES
@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* =========================================
        2. LÓGICA DEL MENÚ MÓVIL
        ========================================= */
+    // Abrir menú
     if (hamburger && sidebar) {
         hamburger.addEventListener('click', (e) => {
             e.preventDefault();
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Cerrar menú con botón X
     if (closeBtn && sidebar) {
         closeBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -28,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Cerrar menú al hacer clic en un enlace
+    // Cerrar menú al hacer clic en un enlace (para navegar)
     if (sidebar) {
         const links = sidebar.querySelectorAll('a');
         links.forEach(link => {
@@ -38,38 +40,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Acordeón para submenús (PC)
+    // Lógica de acordeón (Submenús)
     const menuItems = document.querySelectorAll('.has-children');
     menuItems.forEach(item => {
         const title = item.querySelector('.menu-title');
         if(title) {
             title.addEventListener('click', (e) => {
-                // Solo actúa si no es un enlace directo
-                if (e.target.tagName !== 'A') {
-                    e.stopPropagation();
-                    item.classList.toggle('open');
+                // Si es móvil, no hacemos nada (ya están abiertos)
+                if(window.innerWidth > 768) {
+                    if (e.target.tagName !== 'A') {
+                        e.stopPropagation();
+                        item.classList.toggle('open');
+                    }
                 }
             });
         }
     });
 
     /* =========================================
-       3. LÓGICA DEL MODO OSCURO & PARTÍCULAS
+       3. MODO OSCURO & PARTÍCULAS
        ========================================= */
 
-    function updateParticles(isDark) {
+    function loadParticles(colorHex) {
         if (typeof tsParticles === 'undefined') return;
 
-        const color = isDark ? "#ffffff" : "#2563eb"; // Blanco en oscuro, Azul en claro
-
-        // Cargamos partículas con configuración simple
         tsParticles.load("particles-bg", {
             fullScreen: { enable: false },
             background: { color: "transparent" },
             particles: {
-                number: { value: 50 },
-                color: { value: color },
-                links: { enable: true, color: color, distance: 150, opacity: 0.4 },
+                number: { value: 40 },
+                color: { value: colorHex },
+                links: { enable: true, color: colorHex, distance: 150, opacity: 0.4 },
                 move: { enable: true, speed: 1 },
                 opacity: { value: 0.5 },
                 size: { value: 3 }
@@ -77,34 +78,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Aplicar tema
     function applyTheme(isDark) {
         if (isDark) {
             root.setAttribute('data-theme', 'dark');
             if (themeBtn) themeBtn.textContent = 'Modo claro';
-            updateParticles(true);
+            loadParticles("#ffffff"); // Partículas blancas
         } else {
             root.removeAttribute('data-theme');
             if (themeBtn) themeBtn.textContent = 'Modo oscuro';
-            updateParticles(false);
+            loadParticles("#2563eb"); // Partículas azules
         }
     }
 
-    // Cargar preferencia guardada
+    // Cargar preferencia guardada o del sistema
     const savedTheme = localStorage.getItem('site-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
         applyTheme(true);
     } else {
         applyTheme(false);
     }
 
-    // Evento botón
+    // Evento Click Botón Tema
     if (themeBtn) {
         themeBtn.addEventListener('click', () => {
-            const isDark = root.getAttribute('data-theme') === 'dark';
-            if (isDark) {
+            const isDarkNow = root.getAttribute('data-theme') === 'dark';
+            if (isDarkNow) {
                 applyTheme(false);
                 localStorage.setItem('site-theme', 'light');
             } else {
@@ -115,22 +115,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* =========================================
-       4. LÓGICA DEL FORMULARIO
+       4. FORMULARIO
        ========================================= */
     if (contactForm) {
         contactForm.addEventListener("submit", function(event) {
             const btn = contactForm.querySelector("button");
 
-            // Validación visual simple
+            // Validación visual
             if (!contactForm.checkValidity()) {
                 if (btn) {
                     btn.classList.add("error-shake");
                     setTimeout(() => btn.classList.remove("error-shake"), 500);
                 }
+                // Deja que el navegador maneje los mensajes nativos
                 return;
             }
 
-            // Efecto enviando
+            // Efecto de envío
             if (btn) {
                 btn.innerHTML = "Enviando ✈️...";
                 btn.style.opacity = "0.7";

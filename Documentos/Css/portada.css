@@ -1,356 +1,5 @@
 /* =========================================
-   1. VARIABLES DE TEMA (Sistema nuevo)
-   ========================================= */
-:root {
-    /* --- MODO CLARO --- */
-    --bg-body: #ffffff;          /* AHORA ES BLANCO PURO */
-    --text-main: #000000;        /* Texto negro */
-    --text-subtitle: #666666;    /* Subtítulos gris */
-
-    --bg-sidebar: #003399;       /* Azul Sidebar original */
-    --text-sidebar: #ffffff;
-
-    --bg-box: #D9D9D9;           /* Gris cajas original */
-    --text-box: #ffffff;         /* Texto blanco en cajas grises */
-
-    --bg-footer: #555555;        /* Gris footer */
-    --bg-input: rgba(255, 255, 255, 0.5);
-    --text-input: #333;
-
-    /* Botón flotante */
-    --btn-bg: #000000;
-    --btn-text: #ffffff;
-}
-
-/* MODO OSCURO (Se activa con JS) */
-[data-theme="dark"] {
-    --bg-body: #121212;          /* Fondo casi negro */
-    --text-main: #f0f0f0;        /* Texto blanco */
-    --text-subtitle: #aaaaaa;
-
-    --bg-sidebar: #001a4d;       /* Azul muy oscuro */
-    --text-sidebar: #dddddd;
-
-    --bg-box: #2d2d2d;           /* Cajas gris oscuro */
-    --text-box: #e0e0e0;
-
-    --bg-footer: #1a1a1a;
-    --bg-input: rgba(0, 0, 0, 0.5);
-    --text-input: #fff;
-
-    /* Botón flotante */
-    --btn-bg: #ffffff;
-    --btn-text: #000000;
-}
-
-/* --- RESET BÁSICO --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    /* APLICAMOS VARIABLES */
-    background-color: var(--bg-body);
-    color: var(--text-main);
-    transition: background-color 0.3s ease, color 0.3s ease;
-    position: relative; /* Para z-index del contexto */
-}
-
-/* --- ESTILOS DEL BOTÓN FLOTANTE --- */
-.btn {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  z-index: 99999;
-  padding: 8px 12px;
-  background: var(--btn-bg);
-  color: var(--btn-text);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  transition: transform .12s ease;
-  font-weight: bold;
-}
-.btn:active { transform: translateY(1px); }
-
-/* --- ESTILOS DE PARTÍCULAS --- */
-#particles-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  background: transparent;
-}
-
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.05); /* Muy sutil */
-  z-index: -3;
-  pointer-events: none;
-}
-
-/* Forzar canvas de partículas detrás */
-.tsparticles-canvas-el {
-  position: fixed !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  z-index: -9999 !important;
-  pointer-events: none !important;
-}
-
-/* --- HEADER SUPERIOR (Inicialmente oculto en escritorio) --- */
-.main-header {
-    display: none; /* Se activa en móvil con media query */
-}
-
-/* --- LAYOUT PRINCIPAL --- */
-/* Soporta tanto .layout-container (tu nombre antiguo) como .main-layout (el nuevo estándar) */
-.layout-container, .main-layout {
-    display: flex;
-    flex: 1;
-    z-index: 1; /* Por encima de las partículas */
-}
-
-/* --- BARRA LATERAL (NAV) --- */
-.sidebar {
-    width: 260px;
-    background-color: var(--bg-sidebar); /* Variable */
-    color: var(--text-sidebar);
-    padding: 40px 20px;
-    flex-shrink: 0;
-    overflow-y: auto;
-    transition: background-color 0.3s;
-}
-
-.menu-root { list-style: none; }
-
-.menu-title {
-    font-size: 1.6rem;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    padding: 8px 0;
-    user-select: none;
-    gap: 10px;
-    color: inherit;
-}
-
-.menu-title.indented {
-    padding-left: 20px;
-    font-size: 1.3rem;
-}
-
-.arrow {
-    font-size: 0.9rem;
-    display: inline-block;
-    transition: transform 0.2s ease;
-    color: rgba(255,255,255,0.7);
-}
-
-.menu-link {
-    padding-left: 45px;
-    margin-bottom: 8px;
-    list-style: none;
-}
-
-.menu-link a {
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.2s;
-    display: block;
-}
-
-.menu-link a:hover {
-    color: white;
-    text-decoration: underline;
-}
-
-/* --- ANIMACIÓN DESPLEGABLE --- */
-.submenu {
-    list-style: none;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.open > .submenu { max-height: 800px; }
-.open > .menu-title .arrow { transform: rotate(90deg); color: white; }
-
-/* --- CONTENIDO --- */
-/* Soporta .content (tu nombre antiguo) y .content-area */
-.content, .content-area {
-    flex: 1;
-    padding: 40px 50px;
-}
-
-header h1, .section-header h1 {
-    font-size: 3rem;
-    color: var(--text-main); /* Variable */
-    margin-bottom: 5px;
-}
-
-.section-subtitle, .section-header h2 {
-    font-size: 1.8rem;
-    color: var(--text-subtitle); /* Variable */
-    font-weight: bold;
-    margin-bottom: 30px;
-}
-
-/* --- CAJAS GRISES --- */
-.grey-box {
-    background-color: var(--bg-box); /* Variable */
-    padding: 30px;
-    border-radius: 5px;
-    color: var(--text-box); /* Variable */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: background-color 0.3s;
-}
-
-/* --- GRID ASIMÉTRICO (Proyectos) --- */
-.projects-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin-bottom: 30px;
-}
-
-.project-card {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.project-card.wide { grid-column: span 2; }
-
-.project-card h3 {
-    font-size: 1.7rem;
-    margin: 0;
-}
-
-.project-card h3 a {
-    color: white !important; /* Siempre blanco en cajas */
-    text-decoration: none;
-}
-
-.project-card h3 a:hover { text-decoration: underline; }
-
-.project-card img {
-    align-self: flex-start;
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    border-radius: 4px;
-}
-
-.project-card p {
-    font-size: 1.15rem;
-    line-height: 1.6;
-    margin: 0;
-}
-
-/* --- FORMULARIO --- */
-#contact-form {
-    display: flex;
-    flex-direction: column;
-}
-
-#contact-form label {
-    font-size: 1.5rem;
-    color: var(--text-box); /* Variable */
-    font-weight: bold;
-    margin-bottom: 5px;
-    margin-top: 15px;
-}
-
-#contact-form label:first-child { margin-top: 0; }
-
-#contact-form input,
-#contact-form textarea {
-    background: var(--bg-input); /* Variable */
-    border: 1px solid transparent;
-    padding: 15px;
-    border-radius: 3px;
-    font-size: 1.1rem;
-    color: var(--text-input); /* Variable */
-    width: 100%;
-    outline: none;
-}
-
-/* Foco en inputs */
-#contact-form input:focus,
-#contact-form textarea:focus {
-    border: 1px solid #aaa;
-}
-
-#contact-form button {
-    margin-top: 25px;
-    padding: 15px;
-    background-color: #555555;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1.4rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    width: 100%;
-}
-
-#contact-form button:hover { background-color: #333; }
-
-/* --- FOOTER --- */
-footer, .main-footer {
-    background-color: var(--bg-footer); /* Variable */
-    color: white;
-    text-align: center;
-    padding: 20px;
-    font-size: 1.3rem;
-    margin-top: auto;
-    z-index: 1;
-}
-
-/* --- ENLACES SIDEBAR --- */
-.sidebar a,
-.sidebar a:link,
-.sidebar a:visited,
-.sidebar a:active {
-    color: white !important;
-    text-decoration: none;
-    cursor: pointer;
-}
-.sidebar a:hover { text-decoration: underline; }
-
-/* --- ANIMACIÓN ERROR --- */
-@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
-}
-
-.error-shake {
-    animation: shake 0.4s ease-in-out;
-    background-color: #ff4d4d !important;
-    border: 1px solid #cc0000;
-}
-
-/* =========================================
-   RESPONSIVE DESIGN (MÓVIL Y TABLET)
-   ========================================= */
-/* =========================================
-   1. VARIABLES DE TEMA
+   1. VARIABLES Y TEMA
    ========================================= */
 :root {
     --bg-body: #ffffff;
@@ -359,7 +8,7 @@ footer, .main-footer {
     --bg-sidebar: #003399;
     --text-sidebar: #ffffff;
     --bg-box: #D9D9D9;
-    --text-box: #ffffff;
+    --text-box: #000000; /* Texto negro en cajas grises */
     --bg-footer: #555555;
     --bg-input: rgba(255, 255, 255, 0.5);
     --text-input: #333;
@@ -382,6 +31,7 @@ footer, .main-footer {
     --btn-text: #000000;
 }
 
+/* Reset básico */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
 
 body {
@@ -395,6 +45,7 @@ body {
     position: fixed; top: 16px; right: 16px; z-index: 99999;
     padding: 8px 12px; background: var(--btn-bg); color: var(--btn-text);
     border: none; border-radius: 4px; cursor: pointer; font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 /* Partículas */
@@ -407,6 +58,7 @@ body {
 /* LAYOUT PC */
 .main-layout { display: flex; flex: 1; z-index: 1; }
 
+/* Sidebar PC */
 .sidebar {
     width: 260px; background-color: var(--bg-sidebar); color: var(--text-sidebar);
     padding: 40px 20px; flex-shrink: 0; overflow-y: auto;
@@ -415,16 +67,20 @@ body {
 
 /* Menú Estilos */
 .menu-root { list-style: none; }
-.menu-title { font-size: 1.6rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; padding: 8px 0; gap: 10px; }
+.menu-title { font-size: 1.6rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; padding: 8px 0; gap: 10px; color: inherit; }
 .menu-title.indented { padding-left: 20px; font-size: 1.3rem; }
 .arrow { font-size: 0.9rem; transition: transform 0.2s; color: rgba(255,255,255,0.7); }
 .menu-link a { display: block; padding-left: 45px; margin-bottom: 8px; color: rgba(255,255,255,0.8); text-decoration: none; font-weight: bold; }
 .menu-link a:hover { color: white; text-decoration: underline; }
-.submenu { list-style: none; max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-.open > .submenu, .open-mobile { max-height: 800px; } /* open-mobile fuerza ver submenús en móvil */
-.open > .menu-title .arrow { transform: rotate(90deg); color: white; }
 
-/* Contenido */
+/* Submenú animado */
+.submenu { list-style: none; max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.open > .submenu { max-height: 800px; }
+.open > .menu-title .arrow { transform: rotate(90deg); color: white; }
+/* Forzar submenús abiertos en móvil o si tienen la clase open-mobile */
+.open-mobile { max-height: none !important; }
+
+/* Contenido Principal */
 .content-area { flex: 1; padding: 40px 50px; }
 .section-header h1 { font-size: 3rem; margin-bottom: 5px; }
 .section-subtitle { font-size: 1.8rem; color: var(--text-subtitle); margin-bottom: 30px; }
@@ -432,8 +88,11 @@ body {
 /* Cajas y Grid */
 .grey-box { background-color: var(--bg-box); padding: 30px; border-radius: 5px; color: var(--text-box); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 .projects-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 30px; }
+
+/* Tarjetas */
 .project-card.wide { grid-column: span 2; }
-.project-card h3 a { color: white !important; text-decoration: none; }
+.project-card h3 a { color: inherit; text-decoration: none; } /* Hereda color de la caja */
+.project-card h3 a:hover { text-decoration: underline; }
 .project-card img { width: 100%; max-width: 300px; border-radius: 4px; margin: 10px 0; }
 .project-card p { font-size: 1.15rem; }
 
@@ -441,14 +100,18 @@ body {
 #contact-form { display: flex; flex-direction: column; }
 #contact-form label { font-size: 1.5rem; color: var(--text-box); font-weight: bold; margin-top: 15px; }
 #contact-form input, #contact-form textarea { background: var(--bg-input); border: 1px solid transparent; padding: 15px; margin-top: 5px; color: var(--text-input); width: 100%; }
-#contact-form button { margin-top: 25px; padding: 15px; background-color: #555; color: white; border: none; font-size: 1.4rem; cursor: pointer; width: 100%; }
+#contact-form button { margin-top: 25px; padding: 15px; background-color: #555; color: white; border: none; font-size: 1.4rem; cursor: pointer; width: 100%; border-radius: 4px;}
+#contact-form button:hover { background-color: #333; }
+
+/* Footer */
+.main-footer { background-color: var(--bg-footer); color: white; text-align: center; padding: 20px; margin-top: auto; }
+
+/* Animación Error */
 @keyframes shake { 0%, 100% {transform: translateX(0);} 25%, 75% {transform: translateX(-5px);} 50% {transform: translateX(5px);} }
 .error-shake { animation: shake 0.4s ease-in-out; background-color: #ff4d4d !important; }
 
-.main-footer { background-color: var(--bg-footer); color: white; text-align: center; padding: 20px; margin-top: auto; }
-
 /* =========================================
-   RESPONSIVE DESIGN (MÓVIL) - UNIFICADO
+   RESPONSIVE DESIGN (MÓVIL) - CORREGIDO
    ========================================= */
 @media (max-width: 768px) {
 
@@ -458,21 +121,21 @@ body {
         background: var(--bg-sidebar); color: white; padding: 15px 20px;
         position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     }
-    .main-header h1 { font-size: 1.5rem; }
+    .main-header h1 { font-size: 1.5rem; color: white; margin: 0; }
     .hamburger { background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
 
     /* 2. Layout Columna */
     .main-layout { flex-direction: column; }
     .content-area { padding: 20px; text-align: center; }
 
-    /* 3. Menú Móvil (Pantalla Completa) */
+    /* 3. Menú Móvil (Pantalla Completa y Centrado) */
     .sidebar {
         position: fixed; top: 0; left: -100%;
         width: 100%; height: 100vh;
         z-index: 99999;
-        background-color: #001a4d; /* Azul muy oscuro para contraste */
+        background-color: #001a4d; /* Azul muy oscuro sólido */
         transition: left 0.3s ease;
-        padding-top: 100px; /* IMPORTANTE: Espacio para bajar el texto */
+        padding-top: 100px; /* IMPORTANTE: Baja el texto para que no lo tape la X */
         display: flex; flex-direction: column; align-items: center;
     }
     .sidebar.active { left: 0; }
@@ -483,21 +146,20 @@ body {
         background: none; border: none; color: white; font-size: 3rem; cursor: pointer;
     }
 
-    /* Ajuste de enlaces móvil */
-    .sidebar ul { text-align: center; width: 100%; }
-    .sidebar li { width: 100%; }
+    /* Estilos enlaces móvil */
+    .sidebar ul { text-align: center; width: 100%; padding: 0 20px; }
+    .sidebar li { width: 100%; margin-bottom: 10px; }
     .sidebar .menu-title { justify-content: center; font-size: 1.5rem; }
-    .menu-link a { padding-left: 0; font-size: 1.4rem; margin-bottom: 15px; }
+    .menu-link a { padding-left: 0; font-size: 1.4rem; color: white; }
 
     /* 4. Elementos centrados */
     .projects-container { display: flex; flex-direction: column; }
-    .project-card.wide, .project-card { width: 100%; text-align: center; }
+    .project-card.wide, .project-card { width: 100%; grid-column: auto; text-align: center; }
     .project-card img { max-width: 100%; margin: 15px 0; }
 
     .form-box { text-align: center; }
     #contact-form input, #contact-form textarea { text-align: center; }
 
-    /* Mover botón tema un poco */
-    .btn { top: 15px; right: 15px; font-size: 0.8rem; z-index: 100000; }
-}
+    /* Mover botón tema para que no estorbe */
+    .btn { top: 15px; right: 60px; font-size: 0.8rem; z-index: 100000; }
 }
