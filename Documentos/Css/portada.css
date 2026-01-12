@@ -2,8 +2,8 @@
    1. VARIABLES DE TEMA (Sistema nuevo)
    ========================================= */
 :root {
-    /* MODO CLARO */
-    --bg-body: #eef4ff;          /* Fondo azul muy claro */
+    /* --- MODO CLARO --- */
+    --bg-body: #ffffff;          /* AHORA ES BLANCO PURO */
     --text-main: #000000;        /* Texto negro */
     --text-subtitle: #666666;    /* Subtítulos gris */
 

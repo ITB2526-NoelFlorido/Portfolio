@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto 1 - Portfolio</title>
+    <title>Proyecto 1 - Curso Pokémon VGC</title>
     <link rel="stylesheet" href="Documentos/Css/proyecto1.css">
+
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
 </head>
 <body>
@@ -15,76 +16,78 @@
     <div class="overlay"></div>
 
     <header class="main-header">
-        <button class="hamburger" id="hamburger-btn">☰</button>
-        <h1>Proyecto 1</h1>
+        <h1>Header Global</h1>
     </header>
 
     <div class="main-layout">
 
-       <nav class="sidebar" id="sidebar-nav">
-            <button id="close-sidebar" class="close-btn">×</button>
-
+       <nav class="sidebar">
             <ul class="menu-root">
                 <li class="menu-item has-children">
                     <div class="menu-title">
-                        <span>▶</span> NAVEGACIÓN
+                        <span class="arrow">▶</span> Porfolio:
                     </div>
-                    <ul class="submenu open-mobile">
-                        <li class="menu-link"><a href="index.html">⬅ Volver al Inicio</a></li>
-                        <li class="menu-link separator">------------------</li>
-                        <li class="menu-link"><a href="Proyecto1.html" style="color: #ffcc00;">Proyecto 1 (Actual)</a></li>
-                        <li class="menu-link"><a href="Proyecto2.html">Proyecto 2</a></li>
-                        <li class="menu-link"><a href="Listado.html">Listado</a></li>
-                        <li class="menu-link"><a href="index.html#contact-form">Ir al Formulario</a></li>
+
+                    <ul class="submenu">
+                        <li class="menu-item">
+                            <div class="menu-title indented">
+                                <a href="index.html#contact-form" class="menu-direct-link">Formulario</a>
+                            </div>
+                        </li>
+                        <li class="menu-item has-children">
+                            <div class="menu-title indented">
+                                <span class="arrow">▶</span> Proyectos:
+                            </div>
+                            <ul class="submenu">
+                                <li class="menu-link"><a href="Proyecto1.html">Proyecto 1</a></li>
+                                <li class="menu-link"><a href="Proyecto2.html">Proyecto 2</a></li>
+                                <li class="menu-link"><a href="Listado.html">Listado</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
             </ul>
         </nav>
 
-        <main class="content-area">
+        <section class="content-area">
 
             <header class="section-header">
-                <h1>Proyecto Síntesis SMX</h1>
-                <p class="section-subtitle">Detalles del proyecto:</p>
+                <h1>Porfolio profesional</h1>
+                <h2>Proyecto de Síntesis SMR</h2>
             </header>
 
-            <div class="projects-container" style="display: block;"> <article class="grey-box project-card wide" style="margin: 0 auto; width: 100%; max-width: 800px;">
-                    <img src="Documentos/Imagenes/moodlecloud-icon-unplated.png" alt="Moodle Pokemon">
+            <article class="project-article">
+                <div class="image-container">
+                    <img src="Documentos/Imagenes/moodlecloud-icon-unplated.png" alt="Icono Moodle Cloud">
+                </div>
 
-                    <div style="text-align: left; margin-top: 20px;">
-                        <h3>Sobre el proyecto</h3>
-                        <p>Este proyecto consiste en la creación y administración de un curso completo en la plataforma <strong>Moodle</strong>. La temática elegida fue "Pokémon Competitivo", diseñado para enseñar estrategias avanzadas a jugadores novatos.</p>
+                <div class="text-container">
+                    <h3>Curso: Maestría en Pokémon Competitivo</h3>
+                    <p>
+                        Este proyecto consiste en el diseño y creación de un curso interactivo completo dentro de la plataforma Moodle, enfocado en enseñar a los jugadores a dar el salto del juego casual al competitivo profesional (VGC).
+                    </p>
+                    <p>
+                        El temario profundiza en las mecánicas matemáticas del juego que no se ven a simple vista. Explico detalladamente cómo funcionan los <strong>IVs</strong> y los <strong>EVs</strong> para conseguir estadísticas perfectas. Además, el curso incluye un documento con todos los Pokémon "META", estudiando los equipos y estrategias más usados en el último <strong>Campeonato Mundial</strong>.
+                    </p>
+                    <p>
+                        Para asegurar el aprendizaje, he creado cuestionarios prácticos y guías visuales sobre "Teambuilding" (construcción de equipos), donde enseño a buscar sinergias entre tipos y habilidades para crear un equipo ganador y equilibrado.
+                    </p>
+                    <p>
+                        A nivel de infraestructura, todo el desarrollo lo realicé sobre una <strong>máquina virtual</strong>. Esto me sirvió como entorno de pruebas seguro para configurar la plataforma sin riesgos. Sin embargo, para garantizar que el trabajo no se pierda, todos los archivos importantes y la base de datos del curso están respaldados y guardados en una <strong>máquina física</strong>.
+                    </p>
+                </div>
+            </article>
 
-                        <br>
+            <footer class="section-footer">
+                <p>Plataforma: Moodle</p>
+            </footer>
 
-                        <h3>Tecnologías utilizadas</h3>
-                        <ul style="padding-left: 20px; line-height: 1.6;">
-                            <li>Moodle Cloud (SaaS)</li>
-                            <li>Creación de usuarios y roles</li>
-                            <li>Gestión de insignias y calificaciones</li>
-                            <li>HTML/CSS básico para la personalización del tema</li>
-                        </ul>
+        </section>
 
-                        <br>
-
-                        <h3>Resultados</h3>
-                        <p>Se logró implementar un sistema de aprendizaje funcional donde los alumnos podían registrarse, completar cuestionarios sobre IVs y EVs, y recibir retroalimentación automática.</p>
-                    </div>
-
-                    <br><br>
-                    <div style="text-align: center;">
-                        <a href="index.html" style="background: #333; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">⬅ Volver al Portafolio</a>
-                    </div>
-
-                </article>
-
-            </div>
-
-        </main>
     </div>
 
     <footer class="main-footer">
-        <p>© 2024 - Portfolio Profesional</p>
+        <p>Porfolio Profesional</p>
     </footer>
 
     <script src="Documentos/Js/portada.js"></script>

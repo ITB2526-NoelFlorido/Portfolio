@@ -3,14 +3,14 @@
    ========================================= */
 :root {
     /* MODO CLARO (Fondo Blanco Puro) */
-    --bg-body: #ffffff;
-    --text-main: #333333;
-    --text-subtitle: #666666;
-
-    --bg-sidebar: #003399;
+    --bg-body: #ffffff;          
+    --text-main: #333333;        
+    --text-subtitle: #666666;    
+    
+    --bg-sidebar: #003399;       
     --text-sidebar: #ffffff;
-
-    --bg-footer: #666666;
+    
+    --bg-footer: #666666;        
     --text-footer: #ffffff;
 
     /* Botón flotante */
@@ -20,13 +20,13 @@
 
 /* MODO OSCURO */
 [data-theme="dark"] {
-    --bg-body: #121212;
-    --text-main: #f0f0f0;
+    --bg-body: #121212;          
+    --text-main: #f0f0f0;        
     --text-subtitle: #aaaaaa;
-
-    --bg-sidebar: #001a4d;
+    
+    --bg-sidebar: #001a4d;       
     --text-sidebar: #dddddd;
-
+    
     --bg-footer: #1a1a1a;
     --text-footer: #dddddd;
 
@@ -111,7 +111,7 @@ body {
    ESTILOS DEL MENÚ
    ========================================= */
 .sidebar {
-    width: 260px;
+    width: 260px; 
     background-color: var(--bg-sidebar); /* Variable */
     color: var(--text-sidebar);
     padding: 40px 20px;
@@ -123,7 +123,7 @@ body {
 .menu-root { list-style: none; }
 
 .menu-title {
-    font-size: 1.6rem;
+    font-size: 1.6rem; 
     font-weight: bold;
     cursor: pointer;
     display: flex;
@@ -182,7 +182,7 @@ body {
     display: flex;
     flex-direction: column;
     /* IMPORTANTE: Transparente para que se vean las partículas del body */
-    background-color: transparent;
+    background-color: transparent; 
     padding: 40px 50px;
 }
 
@@ -272,77 +272,4 @@ strong {
 }
 .sidebar a:hover {
     text-decoration: underline;
-}
-@media (max-width: 768px) {
-
-    /* A. HEADER FIJO ARRIBA */
-    .main-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: var(--bg-sidebar);
-        color: white;
-        padding: 15px 20px;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    }
-    .hamburger { background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
-
-    /* B. LAYOUT VERTICAL */
-    .main-layout { flex-direction: column; }
-    .content-area { padding: 20px; text-align: center; }
-
-    /* C. MENÚ MÓVIL (PANTALLA COMPLETA) */
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100vh;
-        background-color: #001a4d; /* Fondo oscuro sólido */
-        z-index: 99999;
-        transition: left 0.3s ease;
-        padding-top: 100px; /* Empuja el texto abajo */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .sidebar.active { left: 0; }
-
-    /* ESTILOS DE LOS ENLACES EN MÓVIL */
-    .sidebar ul { list-style: none; text-align: center; width: 100%; }
-    .sidebar li { margin-bottom: 15px; width: 100%; }
-    .sidebar a { font-size: 1.5rem; display: block; width: 100%; }
-
-    /* D. BOTÓN CERRAR (X) */
-    .close-btn {
-        display: block;
-        position: absolute;
-        top: 25px;
-        right: 25px;
-        background: none;
-        border: none;
-        color: white;
-        font-size: 3rem;
-        cursor: pointer;
-    }
-
-    /* E. ELEMENTOS GENÉRICOS */
-    .projects-container { display: flex; flex-direction: column; }
-
-    /* Ajustes específicos para que Proyecto 1 se vea bien */
-    .project-card.wide {
-        width: 100% !important;
-        margin: 0 auto;
-    }
-
-    .project-card, .form-box { margin-bottom: 30px; text-align: center; }
-    .project-card img { max-width: 100%; height: auto; }
-
-    /* Inputs y botones */
-    .form-box input, .form-box textarea { text-align: center; }
-    .form-box button { width: 100%; font-size: 1.2rem; }
 }
