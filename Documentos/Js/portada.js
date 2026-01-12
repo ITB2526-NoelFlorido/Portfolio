@@ -16,17 +16,20 @@
           // Actualizamos configuración de partículas para modo claro (Azul)
           updateParticlesColor("#2563eb");
       }
-      btn.textContent = theme === 'dark' ? 'Modo claro' : 'Modo oscuro';
+      if(btn) btn.textContent = theme === 'dark' ? 'Modo claro' : 'Modo oscuro';
     }
 
     // Función auxiliar para cambiar color de partículas dinámicamente
     function updateParticlesColor(colorHex) {
         // Solo si tsParticles está cargado y existe la instancia 'particles-bg'
-        const container = tsParticles.domItem(0);
-        if (container) {
-            container.options.particles.color.value = colorHex;
-            container.options.particles.links.color = colorHex;
-            container.refresh();
+        // Comprobamos si 'tsParticles' existe para evitar errores
+        if (typeof tsParticles !== 'undefined') {
+            const container = tsParticles.domItem(0);
+            if (container) {
+                container.options.particles.color.value = colorHex;
+                container.options.particles.links.color = colorHex;
+                container.refresh();
+            }
         }
     }
 
@@ -54,6 +57,9 @@
    2. INICIALIZACIÓN DE PARTÍCULAS
    ========================================= */
 window.addEventListener("load", () => {
+    // Verificamos que la librería esté cargada
+    if (typeof tsParticles === 'undefined') return;
+
     // Detectar color inicial basado en el tema actual
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     const initialColor = isDark ? "#ffffff" : "#2563eb"; // Blanco en dark, Azul en light
@@ -83,7 +89,7 @@ window.addEventListener("load", () => {
 });
 
 /* =========================================
-   3. MENÚ DESPLEGABLE SIDEBAR
+   3. MENÚ DESPLEGABLE SIDEBAR (Submenús)
    ========================================= */
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -92,17 +98,18 @@ document.addEventListener('DOMContentLoaded', () => {
     menuItems.forEach(item => {
         const title = item.querySelector('.menu-title');
 
-        title.addEventListener('click', (e) => {
-            e.stopPropagation();
-            item.classList.toggle('open');
-        });
+        if(title) {
+            title.addEventListener('click', (e) => {
+                e.stopPropagation();
+                item.classList.toggle('open');
+            });
+        }
     });
 });
 
 /* =========================================
    4. FUNCIONES DEL FORMULARIO
    ========================================= */
-
 document.addEventListener("DOMContentLoaded", function() {
 
     // 1. Buscamos el formulario por su ID
@@ -127,9 +134,47 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         // --- B. EFECTO "ENVIANDO" ---
-        btn.innerHTML = "Enviando ✈️...";
-        btn.style.backgroundColor = "#28a745";
-        btn.style.cursor = "wait";
-        btn.style.opacity = "0.9";
+        if(btn) {
+            btn.innerHTML = "Enviando ✈️...";
+            btn.style.backgroundColor = "#28a745";
+            btn.style.cursor = "wait";
+            btn.style.opacity = "0.9";
+        }
     });
+});
+
+/* =========================================
+   5. MENÚ RESPONSIVE (MÓVIL) - NUEVO
+   ========================================= */
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('hamburger-btn');
+    const sidebar = document.querySelector('.sidebar');
+
+    // Solo ejecutamos si existen los elementos (por seguridad)
+    if (hamburger && sidebar) {
+
+        // A) Abrir / Cerrar al pulsar el botón
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation(); // Evita que el clic llegue al document y se cierre solo
+            sidebar.classList.toggle('active');
+        });
+
+        // B) Cerrar si hacemos clic fuera (en la zona oscura o contenido)
+        document.addEventListener('click', (e) => {
+            // Si el menú está abierto... Y el clic NO fue dentro del menú... Y tampoco en el botón
+            if (sidebar.classList.contains('active') &&
+                !sidebar.contains(e.target) &&
+                e.target !== hamburger) {
+                sidebar.classList.remove('active');
+            }
+        });
+
+        // C) Cerrar automáticamente al pulsar un enlace para ir al sitio
+        const links = sidebar.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+            });
+        });
+    }
 });

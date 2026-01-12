@@ -106,8 +106,14 @@ body {
   pointer-events: none !important;
 }
 
-/* --- LAYOUT ORIGINAL --- */
-.layout-container {
+/* --- HEADER SUPERIOR (Inicialmente oculto en escritorio) --- */
+.main-header {
+    display: none; /* Se activa en móvil con media query */
+}
+
+/* --- LAYOUT PRINCIPAL --- */
+/* Soporta tanto .layout-container (tu nombre antiguo) como .main-layout (el nuevo estándar) */
+.layout-container, .main-layout {
     display: flex;
     flex: 1;
     z-index: 1; /* Por encima de las partículas */
@@ -182,18 +188,19 @@ body {
 .open > .menu-title .arrow { transform: rotate(90deg); color: white; }
 
 /* --- CONTENIDO --- */
-.content {
+/* Soporta .content (tu nombre antiguo) y .content-area */
+.content, .content-area {
     flex: 1;
     padding: 40px 50px;
 }
 
-header h1 {
+header h1, .section-header h1 {
     font-size: 3rem;
     color: var(--text-main); /* Variable */
     margin-bottom: 5px;
 }
 
-.section-subtitle {
+.section-subtitle, .section-header h2 {
     font-size: 1.8rem;
     color: var(--text-subtitle); /* Variable */
     font-weight: bold;
@@ -210,7 +217,7 @@ header h1 {
     transition: background-color 0.3s;
 }
 
-/* --- GRID ASIMÉTRICO --- */
+/* --- GRID ASIMÉTRICO (Proyectos) --- */
 .projects-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -254,8 +261,6 @@ header h1 {
 
 /* --- FORMULARIO --- */
 #contact-form {
-    /* Fondo heredado del grey-box donde está metido, o forzado */
-    /* background-color: var(--bg-box);  <-- Ya lo tiene el padre .form-box */
     display: flex;
     flex-direction: column;
 }
@@ -305,7 +310,7 @@ header h1 {
 #contact-form button:hover { background-color: #333; }
 
 /* --- FOOTER --- */
-footer {
+footer, .main-footer {
     background-color: var(--bg-footer); /* Variable */
     color: white;
     text-align: center;
@@ -339,4 +344,95 @@ footer {
     animation: shake 0.4s ease-in-out;
     background-color: #ff4d4d !important;
     border: 1px solid #cc0000;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN (MÓVIL Y TABLET)
+   ========================================= */
+@media (max-width: 768px) {
+
+    /* 1. Header: Lo hacemos visible y le damos color */
+    .main-header {
+        display: flex; /* Ahora sí se ve */
+        align-items: center;
+        gap: 15px;
+        padding: 15px 20px;
+        background-color: var(--bg-sidebar); /* Usa el azul/oscuro del tema */
+        color: var(--text-sidebar);
+        position: sticky;
+        top: 0;
+        z-index: 1000; /* Por encima del contenido */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .main-header h1 {
+        font-size: 1.2rem;
+        margin: 0;
+        color: white; /* Texto blanco en el header móvil */
+    }
+
+    /* 2. Botón Hamburguesa */
+    .hamburger {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.8rem;
+        cursor: pointer;
+        padding: 0 5px;
+    }
+
+    /* 3. Layout: Cambiamos de lado-a-lado a columna */
+    .layout-container, .main-layout {
+        flex-direction: column;
+    }
+
+    /* 4. Sidebar: La ocultamos fuera de la pantalla a la izquierda */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -100%; /* Fuera de pantalla */
+        width: 80%;  /* Ocupa casi todo el ancho */
+        height: 100vh;
+        z-index: 2000; /* Muy arriba */
+        transition: left 0.3s ease; /* Animación suave al entrar */
+        box-shadow: 4px 0 15px rgba(0,0,0,0.5);
+    }
+
+    /* Clase que añadiremos con JS para mostrarla */
+    .sidebar.active {
+        left: 0;
+    }
+
+    /* 5. Contenido: Ajustamos márgenes */
+    .content, .content-area {
+        padding: 20px;
+    }
+
+    header h1, .section-header h1 { font-size: 1.8rem; }
+    .section-subtitle, .section-header h2 { font-size: 1.4rem; }
+
+    /* 6. Grid de Proyectos: Pasamos a 1 columna */
+    .projects-container {
+        grid-template-columns: 1fr; /* Una sola columna */
+    }
+
+    .project-card.wide {
+        grid-column: span 1; /* Ya no ocupa dos huecos */
+    }
+
+    /* Ajuste de imágenes */
+    .image-container img, .project-card img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Botón flotante del Dark Mode: Lo movemos para que no tape el menú */
+    .btn {
+        top: 15px;
+        right: 15px;
+        padding: 5px 10px;
+        font-size: 0.8rem;
+        z-index: 1001; /* Encima del header */
+    }
 }
