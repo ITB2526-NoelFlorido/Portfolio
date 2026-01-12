@@ -337,3 +337,10 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================================
+   AJUSTE: Números azul clarito en Modo Oscuro
+   ========================================= */
+[data-theme="dark"] .projects-list li::before {
+    color: #66b2ff; /* Azul clarito */
+}
