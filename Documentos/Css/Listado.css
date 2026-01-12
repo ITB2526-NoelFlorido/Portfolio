@@ -3,36 +3,36 @@
    ========================================= */
 :root {
     /* --- MODO CLARO --- */
-    --bg-body: #ffffff;          /* Blanco Puro */
-    --text-main: #000000;        /* Texto negro */
-    --text-subtitle: #555555;    /* Texto secundario */
-
+    --bg-body: #ffffff;
+    --text-main: #000000;
+    --text-subtitle: #555555;
     --bg-sidebar: #003399;
     --text-sidebar: #ffffff;
-
     --bg-footer: #777777;
     --text-footer: #ffffff;
-
-    /* Botón flotante */
     --btn-bg: #000000;
     --btn-text: #ffffff;
+    /* Color extra para las tarjetas de proyectos */
+    --card-bg: #f5f5f5;
+    --card-border: #dddddd;
+    --card-hover: #eeeeee;
 }
 
 /* --- MODO OSCURO --- */
 [data-theme="dark"] {
-    --bg-body: #121212;          /* Fondo oscuro */
-    --text-main: #f0f0f0;        /* Texto blanco */
-    --text-subtitle: #aaaaaa;    /* Texto secundario claro */
-
+    --bg-body: #121212;
+    --text-main: #f0f0f0;
+    --text-subtitle: #aaaaaa;
     --bg-sidebar: #001a4d;
     --text-sidebar: #dddddd;
-
     --bg-footer: #1a1a1a;
     --text-footer: #dddddd;
-
-    /* Botón flotante */
     --btn-bg: #ffffff;
     --btn-text: #000000;
+    /* Color extra para tarjetas en oscuro */
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --card-hover: rgba(255, 255, 255, 0.15);
 }
 
 /* --- RESET BÁSICO --- */
@@ -47,14 +47,15 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    /* Aplicamos variables */
     background-color: var(--bg-body);
     color: var(--text-main);
     transition: background-color 0.3s ease, color 0.3s ease;
     position: relative;
+    /* Para evitar scroll horizontal en móvil */
+    overflow-x: hidden;
 }
 
-/* --- ESTILOS DEL BOTÓN FLOTANTE --- */
+/* --- ESTILOS DEL BOTÓN FLOTANTE (MODO OSCURO) --- */
 .btn {
   position: fixed;
   top: 16px;
@@ -79,7 +80,6 @@ body {
   z-index: -2;
   background: transparent;
 }
-
 .overlay {
   position: fixed;
   inset: 0;
@@ -87,7 +87,6 @@ body {
   z-index: -3;
   pointer-events: none;
 }
-
 .tsparticles-canvas-el {
   position: fixed !important;
   inset: 0 !important;
@@ -97,8 +96,25 @@ body {
   pointer-events: none !important;
 }
 
-/* --- 1. HEADER GLOBAL (Oculto) --- */
+/* --- HEADER GLOBAL (Oculto) --- */
 .main-header { display: none; }
+
+/* --- BOTÓN HAMBURGUESA (Por defecto oculto en PC) --- */
+.hamburger-btn {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1001; /* Por encima de todo */
+    background: #003399;
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
 
 /* --- LAYOUT PRINCIPAL --- */
 .main-layout {
@@ -112,11 +128,13 @@ body {
    ========================================= */
 .sidebar {
     width: 260px;
-    background-color: var(--bg-sidebar); /* Variable */
+    background-color: var(--bg-sidebar);
     color: var(--text-sidebar);
     padding: 40px 20px;
     flex-shrink: 0;
     transition: background-color 0.3s;
+    height: auto;
+    min-height: 100vh;
 }
 
 /* Menú Estilos */
@@ -132,12 +150,10 @@ body {
     gap: 10px;
     color: inherit;
 }
-
 .menu-title.indented {
     padding-left: 20px;
     font-size: 1.3rem;
 }
-
 .arrow {
     font-size: 0.9rem;
     display: inline-block;
@@ -145,7 +161,7 @@ body {
     color: rgba(255,255,255,0.7);
 }
 
-/* Enlaces del menú (Forzamos blanco) */
+/* Enlaces del menú */
 .sidebar a,
 .sidebar a:link,
 .sidebar a:visited,
@@ -179,59 +195,85 @@ body {
     padding: 50px 60px;
     display: flex;
     flex-direction: column;
-    background-color: transparent; /* Transparente para las partículas */
+    background-color: transparent;
 }
 
 /* 3.1 TÍTULOS */
-.section-header { margin-bottom: 20px; }
+.section-header { margin-bottom: 30px; }
 
 .section-header h1 {
     font-size: 2.5rem;
     font-weight: bold;
-    color: var(--text-main); /* Variable */
+    color: var(--text-main);
     margin-bottom: 5px;
 }
-
 .section-header h2 {
     font-size: 1.8rem;
-    color: var(--text-subtitle); /* Variable */
+    color: var(--text-subtitle);
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-/* 3.2 LA LISTA DE PROYECTOS */
 .projects-list-article { flex: 1; }
 
+/* =========================================
+   ESTILO GRID (TARJETAS) PARA LA LISTA
+   ========================================= */
 .projects-list {
-    list-style-type: decimal;
-    padding-left: 40px;
-    margin-top: 10px;
-    /* Los números de la lista heredan el color del li */
+    display: grid;
+    /* Esto crea columnas automáticas que se ajustan al espacio */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 0;
+    list-style: none; /* Quitamos los números feos por defecto */
+    counter-reset: project-counter; /* Iniciamos contador propio */
 }
 
 .projects-list li {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 25px;
+    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Efecto Hover en las tarjetas */
+.projects-list li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    background-color: var(--card-hover);
+    border-color: var(--text-subtitle);
+}
+
+/* Título del proyecto dentro de la tarjeta */
+.projects-list li h3 {
     font-size: 1.3rem;
     font-weight: bold;
-    color: var(--text-main); /* Variable: Negro en claro, Blanco en oscuro */
-    margin-bottom: 20px;
-    line-height: 1.4;
+    color: var(--text-main);
+    margin-bottom: 10px;
+    display: block;
 }
 
-/* Título (h3) dentro de la lista */
-.projects-list li h3 {
-    font-size: inherit;
-    font-weight: inherit;
-    display: inline-block;
+/* Número del proyecto (opcional, estilo decorativo) */
+.projects-list li::before {
+    counter-increment: project-counter;
+    content: "#" counter(project-counter);
+    font-size: 0.9rem;
+    color: var(--bg-sidebar); /* Azul del tema */
+    font-weight: bold;
     margin-bottom: 5px;
+    opacity: 0.8;
 }
 
-/* Descripción (p) dentro de la lista */
 .projects-list li p {
-    font-weight: normal;
     font-size: 1rem;
-    color: var(--text-subtitle); /* Variable */
-    margin-top: 5px;
-    margin-bottom: 0;
+    color: var(--text-subtitle);
+    line-height: 1.5;
+    margin: 0;
 }
 
 .section-footer { display: none; }
@@ -240,11 +282,58 @@ body {
    4. FOOTER GLOBAL
    ========================================= */
 .main-footer {
-    background-color: var(--bg-footer); /* Variable */
+    background-color: var(--bg-footer);
     color: var(--text-footer);
     text-align: center;
     padding: 10px;
     font-size: 1.2rem;
     margin-top: auto;
     z-index: 1;
+}
+
+/* =========================================
+   5. RESPONSIVE (MÓVIL)
+   ========================================= */
+@media screen and (max-width: 768px) {
+
+    /* Mostramos el botón */
+    .hamburger-btn {
+        display: block;
+    }
+
+    /* Ocultamos la sidebar por defecto (la movemos fuera) */
+    .sidebar {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        height: 100vh;
+        width: 80%; /* Ocupa el 80% del ancho */
+        max-width: 300px;
+        z-index: 1000;
+        box-shadow: 4px 0 15px rgba(0,0,0,0.5);
+        transition: left 0.3s ease;
+    }
+
+    /* Clase activa para mostrar el menú */
+    .sidebar.active {
+        left: 0;
+    }
+
+    /* Ajustes del contenido principal */
+    .main-layout {
+        flex-direction: column;
+    }
+
+    .content-area {
+        padding: 80px 20px 40px 20px; /* Más padding arriba para el botón */
+    }
+
+    .section-header h1 {
+        font-size: 2rem;
+    }
+
+    /* Ajuste de la cuadrícula en móvil (1 columna) */
+    .projects-list {
+        grid-template-columns: 1fr;
+    }
 }
