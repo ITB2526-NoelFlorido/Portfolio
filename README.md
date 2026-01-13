@@ -68,6 +68,3 @@ Este es un proyecto estático, por lo que no requiere instalación de dependenci
 ## Autor
 
 - Noel - Desarrollo y Diseño
-
----
-Proyecto realizado para la actividad TA05: HTML, CSS y JS.
